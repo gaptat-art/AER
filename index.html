@@ -7,6 +7,14 @@
     <!-- Tailwind CSS with custom font smoothing -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize EmailJS with your Public Key
+        (function() {
+            emailjs.init("YOUR_PUBLIC_KEY"); // <-- Replace with your EmailJS Public Key
+        })();
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -212,10 +220,14 @@
     <!-- Final Confirmation & Email Notice Modal -->
     <div id="final-modal" class="fixed inset-0 z-80 bg-zinc-950/60 backdrop-blur-sm flex items-center justify-center hidden px-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl border border-zinc-100">
-            <div class="w-12 h-12 bg-zinc-100 text-zinc-900 rounded-2xl flex items-center justify-center mx-auto mb-4 text-base shadow-sm">
+            <div id="email-loader" class="hidden mb-4">
+                <i class="fa-solid fa-spinner animate-spin text-2xl text-zinc-900"></i>
+                <p class="text-xs text-zinc-500 mt-2">Sending order confirmation email...</p>
+            </div>
+            <div id="email-success-icon" class="w-12 h-12 bg-zinc-100 text-zinc-900 rounded-2xl flex items-center justify-center mx-auto mb-4 text-base shadow-sm">
                 <i class="fa-solid fa-envelope-circle-check"></i>
             </div>
-            <h3 class="text-xl font-extrabold text-zinc-900 tracking-tight mb-2">Receipt Uploaded & Email Dispatched</h3>
+            <h3 id="email-title" class="text-xl font-extrabold text-zinc-900 tracking-tight mb-2">Receipt Uploaded & Email Sent</h3>
             
             <div class="bg-zinc-50 border border-zinc-200/60 p-4 rounded-2xl text-left text-xs text-zinc-600 mb-6 space-y-2">
                 <p class="font-bold text-zinc-900 flex items-center"><i class="fa-solid fa-paper-plane mr-1.5 text-zinc-700"></i> Sent to: <span id="sent-to-email" class="text-zinc-900 font-mono ml-1"></span></p>
@@ -268,7 +280,7 @@
         ];
 
         let cart = [];
-        let customerEmail = '';
+        let customerData = { name: '', email: '', phone: '', address: '', orderId: '' };
 
         function renderProducts() {
             const grid = document.getElementById('product-grid');
@@ -345,7 +357,7 @@
             itemsContainer.innerHTML = cart.map(item => {
                 totalPrice += item.price * item.qty;
                 return `
-                    py-4 flex items-center justify-between">
+                    <div class="py-4 flex items-center justify-between">
                         <div class="flex items-center space-x-3">
                             <img src="${item.image}" class="w-14 h-14 object-cover rounded-xl border border-zinc-200/60">
                             <div>
@@ -376,10 +388,16 @@
 
         function submitOrder(e) {
             e.preventDefault();
-            customerEmail = document.getElementById('cust-email').value;
+            customerData.name = document.getElementById('cust-name').value;
+            customerData.email = document.getElementById('cust-email').value;
+            customerData.phone = document.getElementById('cust-phone').value;
+            customerData.address = document.getElementById('cust-address').value;
+            customerData.orderId = 'AER-' + Math.floor(1000 + Math.random() * 9000);
+
             const totalPriceText = document.getElementById('cart-total').innerText;
             document.getElementById('success-total').innerText = totalPriceText;
-            document.getElementById('display-order-id').innerText = 'AER-' + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('display-order-id').innerText = customerData.orderId;
+            
             closeCheckout();
             document.getElementById('success-modal').classList.remove('hidden');
         }
@@ -396,8 +414,51 @@
 
         function completeSubmission() {
             document.getElementById('success-modal').classList.add('hidden');
-            document.getElementById('sent-to-email').innerText = customerEmail;
+            document.getElementById('sent-to-email').innerText = customerData.email;
+            
+            // Show final modal with loader
             document.getElementById('final-modal').classList.remove('hidden');
+            document.getElementById('email-loader').classList.remove('hidden');
+            document.getElementById('email-success-icon').classList.add('hidden');
+            document.getElementById('email-title').innerText = "Sending Order Details Email...";
+
+            // 1. Build an itemized HTML structure for the email template
+            let itemsSummary = cart.map(item => `
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 8px;">
+                    <tr>
+                        <td style="font-weight: 700; color: #18181b; text-transform: uppercase;">${item.name} <span style="color: #71717a; font-weight: normal;">(x${item.qty})</span></td>
+                        <td style="text-align: right; font-weight: 600; color: #18181b;">HK$ ${item.price * item.qty}</td>
+                    </tr>
+                </table>
+            `).join('');
+
+            // 2. Calculate total price
+            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            // 3. Prepare parameters matching your EmailJS template variables
+            const templateParams = {
+                to_email: customerData.email,
+                to_name: customerData.name,
+                customer_phone: customerData.phone,
+                shipping_address: customerData.address,
+                order_id: customerData.orderId,
+                order_items: itemsSummary,
+                order_total: `HK$ ${totalPrice}`,
+                message: "Your order has been successfully placed. We will validate your payment within 24 hours. Once validated, you will receive a shipping confirmation update."
+            };
+
+            // 4. Send via EmailJS
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+                .then(function(response) {
+                    document.getElementById('email-loader').classList.add('hidden');
+                    document.getElementById('email-success-icon').classList.remove('hidden');
+                    document.getElementById('email-title').innerText = "Receipt Uploaded & Order Email Sent!";
+                }, function(error) {
+                    document.getElementById('email-loader').classList.add('hidden');
+                    document.getElementById('email-success-icon').classList.remove('hidden');
+                    document.getElementById('email-title').innerText = "Receipt Uploaded (Email Triggered)";
+                    console.error('EmailJS Error:', error);
+                });
         }
 
         function resetAndClose() {
