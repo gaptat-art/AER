@@ -60,7 +60,7 @@
             <div class="bg-white p-6 rounded-xl shadow-sm">
                 <div class="text-2xl mb-3 text-black"><i class="fa-solid fa-qrcode"></i></div>
                 <h3 class="font-bold text-lg mb-2">FPS Payment Method</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">We strictly accept <strong>FPS (Fast Payment System)</strong> transfer. Once you complete your checkout, you will receive our FPS ID/Phone number. Please screenshot and send your payment confirmation receipt to finalize your reservation.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">We strictly accept <strong>FPS (Fast Payment System)</strong> transfer. Once you complete your checkout, you will receive our FPS ID/Phone number. Please upload your payment screen capture receipt to finalize your order.</p>
             </div>
             <div class="bg-white p-6 rounded-xl shadow-sm">
                 <div class="text-2xl mb-3 text-black"><i class="fa-solid fa-truck-fast"></i></div>
@@ -126,37 +126,68 @@
                     </div>
                     <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-xs text-yellow-800">
                         <p class="font-bold mb-1">Payment Method: FPS Transfer Only</p>
-                        <p>After submission, you will see instructions to complete the FPS transaction. Delivery will be arranged within 1 week upon payment clearance.</p>
+                        <p>After submission, you will be given the FPS payment info and a button to upload your payment screen capture.</p>
                     </div>
                     <button type="submit" class="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-zinc-800 transition">
-                        Place Order & View FPS Details
+                        Place Order & Proceed to Payment
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- FPS Success / Instructions Modal -->
+    <!-- FPS Payment & Upload Screen Capture Modal -->
     <div id="success-modal" class="fixed inset-0 z-70 bg-black bg-opacity-70 flex items-center justify-center hidden px-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center">
-            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center max-h-[90vh] overflow-y-auto">
+            <div class="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
                 <i class="fa-solid fa-check"></i>
             </div>
-            <h3 class="text-2xl font-bold mb-2">Order Placed Successfully!</h3>
-            <p class="text-gray-600 text-sm mb-4">Please transfer the exact amount via FPS to finalize your item packaging.</p>
+            <h3 class="text-xl font-bold mb-1">Order Placed Successfully!</h3>
+            <p class="text-gray-600 text-xs mb-4">Please complete your FPS payment and upload your screen capture below.</p>
             
-            <div class="bg-gray-50 p-4 rounded-xl text-left text-sm mb-6 space-y-2 border">
+            <div class="bg-gray-50 p-4 rounded-xl text-left text-sm mb-4 space-y-2 border">
+                <p><strong>Order ID:</strong> <span class="font-mono font-bold text-black" id="display-order-id">AER-8842</span></p>
                 <p><strong>FPS ID / Phone:</strong> <span class="text-blue-600 font-mono font-bold">9876 5432 (AER SHOP HK)</span></p>
                 <p><strong>Total Amount:</strong> <span id="success-total" class="font-bold text-black">HK$0</span></p>
-                <p class="text-xs text-gray-500 mt-2">*Please WhatsApp/Email your transfer screenshot with your Order ID.</p>
             </div>
-            <button onclick="resetAndClose()" class="w-full bg-black text-white py-2.5 rounded-lg font-bold">Done / Back to Home</button>
+
+            <!-- Upload Receipt Section -->
+            <div class="border-2 border-dashed border-gray-300 p-4 rounded-xl mb-5 text-center bg-gray-50 hover:bg-gray-100 transition">
+                <input type="file" id="receipt-file" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
+                <label for="receipt-file" class="cursor-pointer block">
+                    <div id="upload-prompt">
+                        <i class="fa-solid fa-cloud-arrow-up text-2xl text-gray-500 mb-1"></i>
+                        <p class="text-xs font-bold text-gray-700">Click to upload payment screen capture</p>
+                        <p class="text-[10px] text-gray-400 mt-0.5">Supports PNG, JPG, JPEG</p>
+                    </div>
+                    <div id="upload-success" class="hidden">
+                        <i class="fa-solid fa-file-circle-check text-2xl text-green-600 mb-1"></i>
+                        <p id="file-name-display" class="text-xs font-bold text-green-700 truncate max-w-[260px] mx-auto"></p>
+                        <p class="text-[10px] text-gray-500">Click to change file</p>
+                    </div>
+                </label>
+            </div>
+
+            <button onclick="completeSubmission()" id="submit-receipt-btn" class="w-full bg-black text-white py-2.5 rounded-lg font-bold text-sm hover:bg-zinc-800 transition disabled:opacity-50" disabled>
+                Submit Payment Receipt & Finish
+            </button>
+        </div>
+    </div>
+
+    <!-- Final Confirmation Notice Modal -->
+    <div id="final-modal" class="fixed inset-0 z-80 bg-black bg-opacity-70 flex items-center justify-center hidden px-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center">
+            <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                <i class="fa-solid fa-truck-fast"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Thank You!</h3>
+            <p class="text-gray-600 text-xs mb-6 leading-relaxed">Your receipt has been uploaded successfully. Once payment verification is complete, we will arrange your <strong>SF Express delivery within 1 week</strong>.</p>
+            <button onclick="resetAndClose()" class="w-full bg-black text-white py-2 rounded-lg font-bold text-sm">Back to Store</button>
         </div>
     </div>
 
     <!-- Script Application Logic -->
     <script>
-        // Inventory dataset provided
         const products = [
             { id: 1, name: "day pack 2", price: 659, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" },
             { id: 2, name: "day pack 2 xpac", price: 719, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" },
@@ -195,7 +226,6 @@
 
         let cart = [];
 
-        // Initialize display
         function renderProducts() {
             const grid = document.getElementById('product-grid');
             document.getElementById('item-count-label').innerText = `${products.length} items available`;
@@ -224,8 +254,7 @@
         }
 
         function toggleCart() {
-            const drawer = document.getElementById('cart-drawer');
-            drawer.classList.toggle('hidden');
+            document.getElementById('cart-drawer').classList.toggle('hidden');
         }
 
         function addToCart(id) {
@@ -273,7 +302,7 @@
             itemsContainer.innerHTML = cart.map(item => {
                 totalPrice += item.price * item.qty;
                 return `
-                    py-3 flex items-center justify-between">
+                    <div class="py-3 flex items-center justify-between">
                         <div class="flex items-center space-x-3">
                             <img src="${item.image}" class="w-12 h-12 object-cover rounded">
                             <div>
@@ -306,18 +335,38 @@
             e.preventDefault();
             const totalPriceText = document.getElementById('cart-total').innerText;
             document.getElementById('success-total').innerText = totalPriceText;
+            document.getElementById('display-order-id').innerText = 'AER-' + Math.floor(1000 + Math.random() * 9000);
             closeCheckout();
             document.getElementById('success-modal').classList.remove('hidden');
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('upload-prompt').classList.add('hidden');
+                document.getElementById('upload-success').classList.remove('hidden');
+                document.getElementById('file-name-display').innerText = file.name;
+                document.getElementById('submit-receipt-btn').disabled = false;
+            }
+        }
+
+        function completeSubmission() {
+            document.getElementById('success-modal').classList.add('hidden');
+            document.getElementById('final-modal').classList.remove('hidden');
         }
 
         function resetAndClose() {
             cart = [];
             updateCartUI();
-            document.getElementById('success-modal').classList.add('hidden');
+            document.getElementById('final-modal').classList.add('hidden');
             document.getElementById('order-form').reset();
+            // Reset file upload state
+            document.getElementById('receipt-file').value = '';
+            document.getElementById('upload-prompt').classList.remove('hidden');
+            document.getElementById('upload-success').classList.add('hidden');
+            document.getElementById('submit-receipt-btn').disabled = true;
         }
 
-        // Run initialization
         renderProducts();
     </script>
 </body>
