@@ -117,6 +117,10 @@
                         <input type="text" required id="cust-name" class="mt-1 w-full p-2 border rounded-md focus:ring-black focus:border-black">
                     </div>
                     <div>
+                        <label class="block text-sm font-medium text-gray-700">Email Address (For order status updates)</label>
+                        <input type="email" required id="cust-email" class="mt-1 w-full p-2 border rounded-md focus:ring-black focus:border-black" placeholder="name@example.com">
+                    </div>
+                    <div>
                         <label class="block text-sm font-medium text-gray-700">Phone Number (For SF SMS updates)</label>
                         <input type="tel" required id="cust-phone" class="mt-1 w-full p-2 border rounded-md focus:ring-black focus:border-black">
                     </div>
@@ -174,15 +178,23 @@
         </div>
     </div>
 
-    <!-- Final Confirmation Notice Modal -->
+    <!-- Final Confirmation & Email Notice Modal -->
     <div id="final-modal" class="fixed inset-0 z-80 bg-black bg-opacity-70 flex items-center justify-center hidden px-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center">
             <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
-                <i class="fa-solid fa-truck-fast"></i>
+                <i class="fa-solid fa-envelope-circle-check"></i>
             </div>
-            <h3 class="text-lg font-bold mb-2">Thank You!</h3>
-            <p class="text-gray-600 text-xs mb-6 leading-relaxed">Your receipt has been uploaded successfully. Once payment verification is complete, we will arrange your <strong>SF Express delivery within 1 week</strong>.</p>
-            <button onclick="resetAndClose()" class="w-full bg-black text-white py-2 rounded-lg font-bold text-sm">Back to Store</button>
+            <h3 class="text-lg font-bold mb-2">Receipt Uploaded & Email Sent!</h3>
+            
+            <div class="bg-gray-50 border p-3 rounded-xl text-left text-xs text-gray-600 mb-4 space-y-1">
+                <p class="font-bold text-gray-800 mb-1"><i class="fa-solid fa-paper-plane mr-1"></i> Simulated Email Dispatched to: <span id="sent-to-email" class="text-blue-600 font-mono"></span></p>
+                <hr class="my-1">
+                <p><strong>Subject:</strong> Order Confirmation & Payment Verification</p>
+                <p class="italic mt-1 text-gray-500">"Your order has been successfully placed. We will validate your payment within 24 hours, once validated, you will receive a status update mail."</p>
+            </div>
+
+            <p class="text-gray-500 text-xs mb-5">Once verified, we will arrange your <strong>SF Express delivery within 1 week</strong>.</p>
+            <button onclick="resetAndClose()" class="w-full bg-black text-white py-2.5 rounded-lg font-bold text-sm">Back to Store</button>
         </div>
     </div>
 
@@ -225,6 +237,7 @@
         ];
 
         let cart = [];
+        let customerEmail = '';
 
         function renderProducts() {
             const grid = document.getElementById('product-grid');
@@ -332,6 +345,7 @@
 
         function submitOrder(e) {
             e.preventDefault();
+            customerEmail = document.getElementById('cust-email').value;
             const totalPriceText = document.getElementById('cart-total').innerText;
             document.getElementById('success-total').innerText = totalPriceText;
             document.getElementById('display-order-id').innerText = 'AER-' + Math.floor(1000 + Math.random() * 9000);
@@ -351,6 +365,7 @@
 
         function completeSubmission() {
             document.getElementById('success-modal').classList.add('hidden');
+            document.getElementById('sent-to-email').innerText = customerEmail;
             document.getElementById('final-modal').classList.remove('hidden');
         }
 
