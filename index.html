@@ -11,12 +11,12 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         // ==========================================
-        // EMAILJS CONFIGURATION (EDIT HERE)
+        // EMAILJS CONFIGURATION
         // ==========================================
         const EMAILJS_CONFIG = {
-            PUBLIC_KEY: "4COCfpTS4wmL8YgK9",   // Replace with your EmailJS Public Key
-            SERVICE_ID: "service_ayyljap",   // Replace with your EmailJS Service ID
-            TEMPLATE_ID: "template_dbq7pqa"  // Replace with your EmailJS Template ID
+            PUBLIC_KEY: "4COCfpTS4wmL8YgK9",
+            SERVICE_ID: "service_ayyljap",
+            TEMPLATE_ID: "template_dbq7pqa"
         };
         // ==========================================
 
@@ -432,20 +432,15 @@
             document.getElementById('email-success-icon').classList.add('hidden');
             document.getElementById('email-title').innerText = "Sending Order Details Email...";
 
-            // 1. Build an itemized HTML structure for the email template
-            let itemsSummary = cart.map(item => `
-                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 8px;">
-                    <tr>
-                        <td style="font-weight: 700; color: #18181b; text-transform: uppercase;">${item.name} <span style="color: #71717a; font-weight: normal;">(x${item.qty})</span></td>
-                        <td style="text-align: right; font-weight: 600; color: #18181b;">HK$ ${item.price * item.qty}</td>
-                    </tr>
-                </table>
-            `).join('');
+            // 1. Build a clean text-based itemized list mapping to {{order_items}}
+            let itemsSummary = cart.map(item => 
+                `- ${item.name.toUpperCase()} (x${item.qty}) — HK$ ${item.price * item.qty}`
+            ).join('\n');
 
             // 2. Calculate total price
             let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
-            // 3. Prepare parameters matching your EmailJS template variables
+            // 3. Prepare parameters perfectly aligned with your text email template variables
             const templateParams = {
                 to_email: customerData.email,
                 to_name: customerData.name,
@@ -457,7 +452,7 @@
                 message: "Your order has been successfully placed. We will validate your payment within 24 hours. Once validated, you will receive a shipping confirmation update."
             };
 
-            // 4. Send via EmailJS using centralized configuration variables
+            // 4. Send via EmailJS using your credentials
             emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, templateParams)
                 .then(function(response) {
                     document.getElementById('email-loader').classList.add('hidden');
