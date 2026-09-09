@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aer Backpacks Store | Official Stockist Delivery & FPS Payment</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- Header -->
+    <header class="bg-black text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl font-black tracking-wider">AER GEAR</span>
+                <span class="text-xs bg-gray-800 px-2 py-1 rounded text-gray-300">Hong Kong Delivery & FPS</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <button onclick="scrollToSection('shop')" class="hover:text-gray-300 transition">Shop</button>
+                <button onclick="scrollToSection('policy')" class="hover:text-gray-300 transition">Delivery & FPS Info</button>
+                <button onclick="toggleCart()" class="relative bg-white text-black px-4 py-2 rounded-full font-bold flex items-center space-x-2 hover:bg-gray-200 transition">
+                    <i class="fa-solid fa-shopping-bag"></i>
+                    <span>Cart</span>
+                    <span id="cart-count" class="bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-zinc-900 text-white py-16 px-4 text-center">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Authentic Aer Backpacks & Slings</h1>
+            <p class="text-lg text-gray-400 mb-6">Minimalist, functional gear designed for city life and travel. Direct delivery service available across HK.</p>
+            <div class="inline-flex bg-zinc-800 p-3 rounded-lg text-sm text-gray-300 space-x-4">
+                <span><i class="fa-solid fa-truck text-white mr-1"></i> SF Express Delivery (Within 1 Week)</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-qrcode text-white mr-1"></i> FPS Payment Only</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content & Product Grid -->
+    <main id="shop" class="max-w-7xl mx-auto px-4 py-12">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold border-l-4 border-black pl-3">Available Inventory</h2>
+            <span class="text-sm text-gray-500" id="item-count-label">Showing items</span>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Products injected via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Delivery & Payment Policy Section -->
+    <section id="policy" class="bg-gray-100 py-12 border-t border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 grid md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <div class="text-2xl mb-3 text-black"><i class="fa-solid fa-qrcode"></i></div>
+                <h3 class="font-bold text-lg mb-2">FPS Payment Method</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">We strictly accept <strong>FPS (Fast Payment System)</strong> transfer. Once you complete your checkout, you will receive our FPS ID/Phone number. Please screenshot and send your payment confirmation receipt to finalize your reservation.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <div class="text-2xl mb-3 text-black"><i class="fa-solid fa-truck-fast"></i></div>
+                <h3 class="font-bold text-lg mb-2">SF Express Delivery</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">We provide reliable delivery straight to your door or SF Locker/Service Center. After your FPS payment is verified, we will arrange and dispatch your shipment via <strong>SF Express within 1 week</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-8 text-center text-sm text-gray-400">
+        <p>&copy; 2026 Aer Gear Store (HK). All rights reserved. Official Aer designs.</p>
+    </footer>
+
+    <!-- Slide-over Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 overflow-hidden z-55 hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-xl flex flex-col">
+                <!-- Cart Header -->
+                <div class="p-4 bg-black text-white flex justify-between items-center">
+                    <h3 class="font-bold text-lg"><i class="fa-solid fa-shopping-cart mr-2"></i> Your Shopping Cart</h3>
+                    <button onclick="toggleCart()" class="text-gray-400 hover:text-white text-xl">&times;</button>
+                </div>
+                <!-- Cart Items Container -->
+                <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-4 divide-y divide-gray-100">
+                    <!-- Dynamic items -->
+                </div>
+                <!-- Cart Footer / Checkout action -->
+                <div class="p-4 bg-gray-50 border-t border-gray-200">
+                    <div class="flex justify-between font-bold text-lg mb-4">
+                        <span>Total:</span>
+                        <span id="cart-total">HK$0</span>
+                    </div>
+                    <button onclick="openCheckout()" id="checkout-btn" class="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-zinc-800 transition disabled:opacity-50" disabled>
+                        Proceed to Checkout (FPS)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-60 bg-black bg-opacity-50 flex items-center justify-center hidden px-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 overflow-y-auto max-h-[90vh]">
+            <div class="flex justify-between items-center mb-4 pb-2 border-b">
+                <h3 class="text-xl font-bold">Checkout & Delivery Details</h3>
+                <button onclick="closeCheckout()" class="text-gray-500 hover:text-black text-xl">&times;</button>
+            </div>
+            <form id="order-form" onsubmit="submitOrder(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" required id="cust-name" class="mt-1 w-full p-2 border rounded-md focus:ring-black focus:border-black">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Phone Number (For SF SMS updates)</label>
+                        <input type="tel" required id="cust-phone" class="mt-1 w-full p-2 border rounded-md focus:ring-black focus:border-black">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">SF Delivery Address / SF Locker Code</label>
+                        <textarea required id="cust-address" rows="3" placeholder="e.g. H830123 (SF Locker) or your residential/commercial address" class="mt-1 w-full p-2 border rounded-md focus:ring-black focus:border-black"></textarea>
+                    </div>
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-xs text-yellow-800">
+                        <p class="font-bold mb-1">Payment Method: FPS Transfer Only</p>
+                        <p>After submission, you will see instructions to complete the FPS transaction. Delivery will be arranged within 1 week upon payment clearance.</p>
+                    </div>
+                    <button type="submit" class="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-zinc-800 transition">
+                        Place Order & View FPS Details
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FPS Success / Instructions Modal -->
+    <div id="success-modal" class="fixed inset-0 z-70 bg-black bg-opacity-70 flex items-center justify-center hidden px-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 text-center">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">Order Placed Successfully!</h3>
+            <p class="text-gray-600 text-sm mb-4">Please transfer the exact amount via FPS to finalize your item packaging.</p>
+            
+            <div class="bg-gray-50 p-4 rounded-xl text-left text-sm mb-6 space-y-2 border">
+                <p><strong>FPS ID / Phone:</strong> <span class="text-blue-600 font-mono font-bold">9876 5432 (AER SHOP HK)</span></p>
+                <p><strong>Total Amount:</strong> <span id="success-total" class="font-bold text-black">HK$0</span></p>
+                <p class="text-xs text-gray-500 mt-2">*Please WhatsApp/Email your transfer screenshot with your Order ID.</p>
+            </div>
+            <button onclick="resetAndClose()" class="w-full bg-black text-white py-2.5 rounded-lg font-bold">Done / Back to Home</button>
+        </div>
+    </div>
+
+    <!-- Script Application Logic -->
+    <script>
+        // Inventory dataset provided
+        const products = [
+            { id: 1, name: "day pack 2", price: 659, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" },
+            { id: 2, name: "day pack 2 xpac", price: 719, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" },
+            { id: 3, name: "fit pack 3", price: 669, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
+            { id: 4, name: "fit pack 3 xpac", price: 719, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
+            { id: 5, name: "city pack", price: 609, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
+            { id: 6, name: "city pack xpac", price: 709, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
+            { id: 7, name: "city pack pro", price: 729, image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80" },
+            { id: 8, name: "city pack pro xpac", price: 829, image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80" },
+            { id: 9, name: "flight pack 3", price: 669, image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?auto=format&fit=crop&w=600&q=80" },
+            { id: 10, name: "flight pack 3 xpac", price: 779, image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?auto=format&fit=crop&w=600&q=80" },
+            { id: 11, name: "travel pack 3 small", price: 849, image: "https://images.unsplash.com/photo-1522039152336-936517a47f0f?auto=format&fit=crop&w=600&q=80" },
+            { id: 12, name: "travel pack 3 small xpac", price: 959, image: "https://images.unsplash.com/photo-1522039152336-936517a47f0f?auto=format&fit=crop&w=600&q=80" },
+            { id: 13, name: "travel pack 3", price: 859, image: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=600&q=80" },
+            { id: 14, name: "travel pack 3 xpac", price: 969, image: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=600&q=80" },
+            { id: 15, name: "travel pack 2", price: 779, image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80" },
+            { id: 16, name: "travel pack 2 xpac", price: 859, image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80" },
+            { id: 17, name: "travel pack 2 small", price: 749, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
+            { id: 18, name: "pro pack 20l", price: 779, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" },
+            { id: 19, name: "tech pack 2", price: 749, image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80" },
+            { id: 20, name: "slim pack", price: 569, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
+            { id: 21, name: "duffel pack 3 xpac", price: 769, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
+            { id: 22, name: "day sling 3", price: 439, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
+            { id: 23, name: "day sling 3 xpac", price: 469, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
+            { id: 24, name: "day sling 3 max", price: 459, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
+            { id: 25, name: "day sling 3 max xpac", price: 479, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
+            { id: 26, name: "city sling 2", price: 479, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
+            { id: 27, name: "city sling 2 xpac", price: 499, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
+            { id: 28, name: "travel sling 2 xpac", price: 629, image: "https://images.unsplash.com/photo-1522039152336-936517a47f0f?auto=format&fit=crop&w=600&q=80" },
+            { id: 29, name: "pro sling", price: 499, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" },
+            { id: 30, name: "tech sling", price: 499, image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80" },
+            { id: 31, name: "city tote", price: 599, image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80" },
+            { id: 32, name: "gym tote", price: 629, image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80" },
+            { id: 33, name: "Travel kit 2 xpac", price: 449, image: "https://images.unsplash.com/photo-1522039152336-936517a47f0f?auto=format&fit=crop&w=600&q=80" }
+        ];
+
+        let cart = [];
+
+        // Initialize display
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            document.getElementById('item-count-label').innerText = `${products.length} items available`;
+            grid.innerHTML = products.map(p => `
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden border border-gray-100 flex flex-col">
+                    <div class="h-48 overflow-hidden bg-gray-100 relative">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-300">
+                        <span class="absolute top-2 left-2 bg-black text-white text-[10px] px-2 py-0.5 uppercase tracking-wider font-bold rounded">Aer Official Stock</span>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 justify-between">
+                        <div>
+                            <h3 class="font-bold text-gray-900 capitalize mb-1">${p.name}</h3>
+                            <p class="text-gray-900 font-extrabold text-lg">HK$ ${p.price}</p>
+                        </div>
+                        <button onclick="addToCart(${p.id})" class="mt-4 w-full bg-black text-white py-2 rounded-lg font-medium text-sm hover:bg-zinc-800 transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateQuantity(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const countEl = document.getElementById('cart-count');
+            const itemsContainer = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            countEl.innerText = totalCount;
+
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = `<p class="text-gray-500 text-center py-8">Your cart is empty.</p>`;
+                totalEl.innerText = "HK$0";
+                checkoutBtn.disabled = true;
+                return;
+            }
+
+            checkoutBtn.disabled = false;
+            let totalPrice = 0;
+
+            itemsContainer.innerHTML = cart.map(item => {
+                totalPrice += item.price * item.qty;
+                return `
+                    py-3 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.image}" class="w-12 h-12 object-cover rounded">
+                            <div>
+                                <h4 class="font-bold text-sm capitalize">${item.name}</h4>
+                                <p class="text-xs text-gray-500">HK$ ${item.price} each</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 bg-gray-200 rounded flex items-center justify-center font-bold text-xs">-</button>
+                            <span class="text-sm font-bold w-4 text-center">${item.qty}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 bg-gray-200 rounded flex items-center justify-center font-bold text-xs">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            totalEl.innerText = `HK$ ${totalPrice}`;
+        }
+
+        function openCheckout() {
+            toggleCart();
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            const totalPriceText = document.getElementById('cart-total').innerText;
+            document.getElementById('success-total').innerText = totalPriceText;
+            closeCheckout();
+            document.getElementById('success-modal').classList.remove('hidden');
+        }
+
+        function resetAndClose() {
+            cart = [];
+            updateCartUI();
+            document.getElementById('success-modal').classList.add('hidden');
+            document.getElementById('order-form').reset();
+        }
+
+        // Run initialization
+        renderProducts();
+    </script>
+</body>
+</html>
