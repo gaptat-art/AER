@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aer Backpacks Store | Official Stockist Delivery & FPS Payment</title>
+    <title>Aer Backpacks Store | Delivery Service & FPS Payment</title>
     <!-- Tailwind CSS for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -32,7 +32,7 @@
     <!-- Hero Section -->
     <section class="bg-zinc-900 text-white py-16 px-4 text-center">
         <div class="max-w-3xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Authentic Aer Backpacks & Slings</h1>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Aer Backpacks & Slings</h1>
             <p class="text-lg text-gray-400 mb-6">Minimalist, functional gear designed for city life and travel. Direct delivery service available across HK.</p>
             <div class="inline-flex bg-zinc-800 p-3 rounded-lg text-sm text-gray-300 space-x-4">
                 <span><i class="fa-solid fa-truck text-white mr-1"></i> SF Express Delivery (Within 1 Week)</span>
@@ -72,7 +72,7 @@
 
     <!-- Footer -->
     <footer class="bg-black text-white py-8 text-center text-sm text-gray-400">
-        <p>&copy; 2026 Aer Gear Store (HK). All rights reserved. Official Aer designs.</p>
+        <p>&copy; 2026 Aer Gear Store (HK). All rights reserved.</p>
     </footer>
 
     <!-- Slide-over Cart Drawer -->
@@ -233,7 +233,6 @@
                 <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden border border-gray-100 flex flex-col">
                     <div class="h-48 overflow-hidden bg-gray-100 relative">
                         <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-300">
-                        <span class="absolute top-2 left-2 bg-black text-white text-[10px] px-2 py-0.5 uppercase tracking-wider font-bold rounded">Aer Official Stock</span>
                     </div>
                     <div class="p-4 flex flex-col flex-1 justify-between">
                         <div>
@@ -360,7 +359,6 @@
             updateCartUI();
             document.getElementById('final-modal').classList.add('hidden');
             document.getElementById('order-form').reset();
-            // Reset file upload state
             document.getElementById('receipt-file').value = '';
             document.getElementById('upload-prompt').classList.remove('hidden');
             document.getElementById('upload-success').classList.add('hidden');
