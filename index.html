@@ -11,7 +11,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         // ==========================================
-        // EMAILJS CONFIGURATION
+        // EMAILJS CONFIGURATION (EDIT HERE)
         // ==========================================
         const EMAILJS_CONFIG = {
             PUBLIC_KEY: "4COCfpTS4wmL8YgK9",
@@ -20,9 +20,11 @@
         };
         // ==========================================
 
-        // Initialize EmailJS automatically
+        // Robust Initialization for @emailjs/browser SDK
         (function() {
-            emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+            emailjs.init({
+                publicKey: EMAILJS_CONFIG.PUBLIC_KEY
+            });
         })();
     </script>
     <style>
@@ -432,15 +434,12 @@
             document.getElementById('email-success-icon').classList.add('hidden');
             document.getElementById('email-title').innerText = "Sending Order Details Email...";
 
-            // 1. Build a clean text-based itemized list mapping to {{order_items}}
             let itemsSummary = cart.map(item => 
                 `- ${item.name.toUpperCase()} (x${item.qty}) — HK$ ${item.price * item.qty}`
             ).join('\n');
 
-            // 2. Calculate total price
             let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
-            // 3. Prepare parameters perfectly aligned with your text email template variables
             const templateParams = {
                 to_email: customerData.email,
                 to_name: customerData.name,
@@ -452,18 +451,26 @@
                 message: "Your order has been successfully placed. We will validate your payment within 24 hours. Once validated, you will receive a shipping confirmation update."
             };
 
-            // 4. Send via EmailJS using your credentials
-            emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, templateParams)
-                .then(function(response) {
-                    document.getElementById('email-loader').classList.add('hidden');
-                    document.getElementById('email-success-icon').classList.remove('hidden');
-                    document.getElementById('email-title').innerText = "Receipt Uploaded & Order Email Sent!";
-                }, function(error) {
-                    document.getElementById('email-loader').classList.add('hidden');
-                    document.getElementById('email-success-icon').classList.remove('hidden');
-                    document.getElementById('email-title').innerText = "Receipt Uploaded (Email Triggered)";
-                    console.error('EmailJS Error:', error);
-                });
+            console.log("Dispatching EmailJS with params:", templateParams);
+
+            // Send via EmailJS with explicit public key fallback option
+            emailjs.send(
+                EMAILJS_CONFIG.SERVICE_ID, 
+                EMAILJS_CONFIG.TEMPLATE_ID, 
+                templateParams,
+                { publicKey: EMAILJS_CONFIG.PUBLIC_KEY }
+            )
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                document.getElementById('email-loader').classList.add('hidden');
+                document.getElementById('email-success-icon').classList.remove('hidden');
+                document.getElementById('email-title').innerText = "Receipt Uploaded & Order Email Sent!";
+            }, function(error) {
+                console.error('FAILED...', error);
+                document.getElementById('email-loader').classList.add('hidden');
+                document.getElementById('email-success-icon').classList.remove('hidden');
+                document.getElementById('email-title').innerText = "Receipt Uploaded (Check Console F12)";
+            });
         }
 
         function resetAndClose() {
