@@ -10,9 +10,19 @@
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-        // Initialize EmailJS with your Public Key
+        // ==========================================
+        // EMAILJS CONFIGURATION (EDIT HERE)
+        // ==========================================
+        const EMAILJS_CONFIG = {
+            PUBLIC_KEY: "4COCfpTS4wmL8YgK9",   // Replace with your EmailJS Public Key
+            SERVICE_ID: "service_ayyljap",   // Replace with your EmailJS Service ID
+            TEMPLATE_ID: "template_dbq7pqa"  // Replace with your EmailJS Template ID
+        };
+        // ==========================================
+
+        // Initialize EmailJS automatically
         (function() {
-            emailjs.init("YOUR_PUBLIC_KEY"); // <-- Replace with your EmailJS Public Key
+            emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
         })();
     </script>
     <style>
@@ -447,8 +457,8 @@
                 message: "Your order has been successfully placed. We will validate your payment within 24 hours. Once validated, you will receive a shipping confirmation update."
             };
 
-            // 4. Send via EmailJS
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+            // 4. Send via EmailJS using centralized configuration variables
+            emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, templateParams)
                 .then(function(response) {
                     document.getElementById('email-loader').classList.add('hidden');
                     document.getElementById('email-success-icon').classList.remove('hidden');
