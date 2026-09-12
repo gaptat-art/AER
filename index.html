@@ -305,10 +305,11 @@
         const products = [
             { 
                 id: 1, 
-                name: "aer city pack 2 (cordura)", 
+                name: "city pack 2 (cordura)", 
                 price: 849, 
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
+                colors: ["Black"],
                 description: [
                     "1680D CORDURA® ballistic nylon exterior (bluesign® approved)",
                     "YKK® zippers",
@@ -331,6 +332,7 @@
                 price: 719, 
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
+                colors: ["Black", "Olive"],
                 description: [
                     "VX-42 X-Pac™ sailcloth exterior",
                     "YKK® AquaGuard® water-repellent zippers",
@@ -344,6 +346,7 @@
                 price: 669, 
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80",
+                colors: ["Black", "Navy", "Gray"],
                 description: [
                     "Ventilated shoe compartment for gym/work",
                     "Padded laptop pocket (up to 15.6\")"
@@ -356,6 +359,7 @@
                 price: 609, 
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80",
+                colors: ["Black", "Gray"],
                 description: [
                     "Compact everyday urban backpack",
                     "Smart internal layout for tech accessories"
@@ -368,6 +372,7 @@
                 price: 729, 
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80",
+                colors: ["Black", "Navy"],
                 description: [
                     "Lay-flat main compartment for easy packing",
                     "Suspended laptop pocket (up to 15.6\")"
@@ -380,6 +385,7 @@
                 price: 859, 
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=600&q=80",
+                colors: ["Black", "X-Pac Black"],
                 description: [
                     "Ultimate carry-on backpack for frequent travelers",
                     "Expandable main packing compartment"
@@ -392,6 +398,7 @@
                 price: 439, 
                 category: "sling",
                 image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80",
+                colors: ["Black", "Gray", "Olive"],
                 description: [
                     "Versatile crossbody sling bag for daily essentials",
                     "Quick-adjust strap and smart pockets"
@@ -404,6 +411,7 @@
                 price: 749, 
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80",
+                colors: ["Black"],
                 description: [
                     "Ultimate organization for heavy tech gear",
                     "Rigid structure to protect electronics"
@@ -474,6 +482,7 @@
                         <div>
                             <h3 onclick="openProductModal(${p.id})" class="font-extrabold text-white capitalize tracking-tight text-xs mb-1">${p.name}</h3>
                             <p class="text-zinc-200 font-mono font-extrabold text-xs">HK$ ${p.price}</p>
+                            <p class="text-[10px] text-zinc-400 mt-1">Color: <span class="text-zinc-300 font-medium">${p.colors.join(', ')}</span></p>
                         </div>
                         <div class="flex items-center gap-2 mt-4">
                             <button onclick="openProductModal(${p.id})" class="flex-1 bg-dark-950 border border-zinc-800 text-zinc-300 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-wider">Details</button>
@@ -496,7 +505,11 @@
                     <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
                 </div>
                 <h2 class="text-xl font-black text-white capitalize tracking-tight mb-1">${product.name}</h2>
-                <p class="text-base font-mono font-extrabold text-zinc-100 mb-4">HK$ ${product.price}</p>
+                <p class="text-base font-mono font-extrabold text-zinc-100 mb-2">HK$ ${product.price}</p>
+                <div class="mb-4 text-xs text-zinc-300">
+                    <span class="text-[10px] uppercase tracking-wider font-bold text-zinc-500 block mb-1">Available Color</span>
+                    <span class="bg-dark-950 border border-zinc-800 px-3 py-1.5 rounded-lg inline-block font-medium">${product.colors.join(', ')}</span>
+                </div>
                 <button onclick="addToCart(${product.id}); closeProductModal();" class="w-full bg-white text-black py-3 rounded-xl font-extrabold text-[11px] uppercase tracking-widest mb-4 shadow-lg">
                     Add to Cart
                 </button>
