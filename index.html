@@ -44,7 +44,6 @@
     </script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-        /* Clean body scroll lock without breaking page layout */
         body.modal-open {
             overflow: hidden;
         }
@@ -112,11 +111,32 @@
 
     <!-- Main Content & Product Grid -->
     <main id="shop" class="max-w-7xl mx-auto px-4 py-12 border-t border-zinc-900">
-        <div class="flex flex-col mb-8 border-b border-zinc-800 pb-4">
+        <div class="flex flex-col mb-6 border-b border-zinc-800 pb-4">
             <span class="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-bold block mb-1">Catalogue</span>
-            <div class="flex justify-between items-baseline">
+            <div class="flex justify-between items-baseline mb-4">
                 <h2 class="text-2xl font-extrabold tracking-tight text-white">Backpacks & Slings</h2>
                 <span class="text-[11px] font-mono font-semibold text-zinc-400" id="item-count-label">Loading...</span>
+            </div>
+            
+            <!-- Filter and Sorting Controls -->
+            <div class="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between bg-dark-900/60 p-3 rounded-2xl border border-zinc-800/80">
+                <!-- Category Filters -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+                    <button onclick="setFilter('all')" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold uppercase tracking-wider transition whitespace-nowrap bg-white text-black" data-category="all">All Items</button>
+                    <button onclick="setFilter('backpack')" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold uppercase tracking-wider transition whitespace-nowrap bg-dark-950 text-zinc-400 border border-zinc-800 hover:text-white" data-category="backpack">Backpacks</button>
+                    <button onclick="setFilter('sling')" class="filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold uppercase tracking-wider transition whitespace-nowrap bg-dark-950 text-zinc-400 border border-zinc-800 hover:text-white" data-category="sling">Slings</button>
+                </div>
+
+                <!-- Sorting Dropdown -->
+                <div class="flex items-center space-x-2 shrink-0">
+                    <span class="text-[10px] uppercase tracking-wider text-zinc-500 font-bold hidden sm:inline">Sort:</span>
+                    <select id="sort-select" onchange="handleSort(this.value)" class="bg-dark-950 border border-zinc-800 text-zinc-300 text-[11px] font-bold rounded-xl px-3 py-1.5 focus:outline-none focus:border-zinc-500 w-full sm:w-auto">
+                        <option value="default">Featured / Default</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -287,6 +307,7 @@
                 id: 1, 
                 name: "aer city pack 2", 
                 price: 659, 
+                category: "backpack",
                 image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
                 description: [
                     "1680D CORDURA® ballistic nylon exterior",
@@ -300,6 +321,7 @@
                 id: 2, 
                 name: "day pack 2 xpac", 
                 price: 719, 
+                category: "backpack",
                 image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
                 description: [
                     "VX-42 X-Pac™ sailcloth exterior",
@@ -312,6 +334,7 @@
                 id: 3, 
                 name: "fit pack 3", 
                 price: 669, 
+                category: "backpack",
                 image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80",
                 description: [
                     "Ventilated shoe compartment for gym/work",
@@ -323,6 +346,7 @@
                 id: 4, 
                 name: "city pack", 
                 price: 609, 
+                category: "backpack",
                 image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80",
                 description: [
                     "Compact everyday urban backpack",
@@ -334,6 +358,7 @@
                 id: 5, 
                 name: "city pack pro", 
                 price: 729, 
+                category: "backpack",
                 image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80",
                 description: [
                     "Lay-flat main compartment for easy packing",
@@ -345,6 +370,7 @@
                 id: 6, 
                 name: "travel pack 3", 
                 price: 859, 
+                category: "backpack",
                 image: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=600&q=80",
                 description: [
                     "Ultimate carry-on backpack for frequent travelers",
@@ -356,6 +382,7 @@
                 id: 7, 
                 name: "day sling 3", 
                 price: 439, 
+                category: "sling",
                 image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80",
                 description: [
                     "Versatile crossbody sling bag for daily essentials",
@@ -367,6 +394,7 @@
                 id: 8, 
                 name: "tech pack 2", 
                 price: 749, 
+                category: "backpack",
                 image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80",
                 description: [
                     "Ultimate organization for heavy tech gear",
@@ -377,12 +405,59 @@
         ];
 
         let cart = [];
+        let currentFilter = 'all';
+        let currentSort = 'default';
         let customerData = { name: '', email: '', phone: '', address: '', orderId: '' };
+
+        function setFilter(category) {
+            currentFilter = category;
+            
+            // Update active state of filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-category') === category) {
+                    btn.className = "filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold uppercase tracking-wider transition whitespace-nowrap bg-white text-black";
+                } else {
+                    btn.className = "filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold uppercase tracking-wider transition whitespace-nowrap bg-dark-950 text-zinc-400 border border-zinc-800 hover:text-white";
+                }
+            });
+            
+            renderProducts();
+        }
+
+        function handleSort(sortValue) {
+            currentSort = sortValue;
+            renderProducts();
+        }
 
         function renderProducts() {
             const grid = document.getElementById('product-grid');
-            document.getElementById('item-count-label').innerText = `${products.length} items`;
-            grid.innerHTML = products.map(p => `
+            
+            // 1. Filter items
+            let filtered = products.filter(p => {
+                if (currentFilter === 'all') return true;
+                return p.category === currentFilter;
+            });
+
+            // 2. Sort items
+            if (currentSort === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (currentSort === 'name') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name));
+            } else {
+                // default sort by id
+                filtered.sort((a, b) => a.id - b.id);
+            }
+
+            document.getElementById('item-count-label').innerText = `${filtered.length} items`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-12 text-center text-zinc-500 text-xs uppercase tracking-widest">No products found in this category.</div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => `
                 <div class="bg-dark-900 rounded-2xl border border-zinc-800/80 shadow-md overflow-hidden flex flex-col">
                     <div class="h-48 overflow-hidden bg-dark-950 relative cursor-pointer" onclick="openProductModal(${p.id})">
                         <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover opacity-90">
