@@ -44,6 +44,13 @@
     </script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+        /* Utility class to lock background scrolling cleanly on mobile & desktop */
+        body.modal-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
         .glass-header {
             background: rgba(9, 9, 11, 0.9);
             backdrop-filter: blur(16px);
@@ -153,7 +160,7 @@
         </div>
     </footer>
 
-    <!-- Product Details Modal (Fixed Scrolling & Background Lock) -->
+    <!-- Product Details Modal -->
     <div id="product-detail-modal" class="fixed inset-0 z-60 bg-dark-950/90 backdrop-blur-md flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
         <div class="bg-dark-900 border-t sm:border border-zinc-800 rounded-t-3xl sm:rounded-3xl max-w-xl w-full p-6 overflow-y-auto max-h-[85vh] shadow-2xl relative">
             <button onclick="closeProductModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-dark-800 flex items-center justify-center text-zinc-400 hover:text-white transition z-10">&times;</button>
@@ -425,14 +432,12 @@
                 </div>
             `;
             
-            // Lock body scroll and open modal
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
             document.getElementById('product-detail-modal').classList.remove('hidden');
         }
 
         function closeProductModal() {
-            // Restore body scroll and close modal
-            document.body.style.overflow = 'auto';
+            document.body.classList.remove('modal-open');
             document.getElementById('product-detail-modal').classList.add('hidden');
         }
 
@@ -440,7 +445,12 @@
             const drawer = document.getElementById('cart-drawer');
             const isHidden = drawer.classList.contains('hidden');
             drawer.classList.toggle('hidden');
-            document.body.style.overflow = isHidden ? 'hidden' : 'auto';
+            
+            if (isHidden) {
+                document.body.classList.add('modal-open');
+            } else {
+                document.body.classList.remove('modal-open');
+            }
         }
 
         function addToCart(id) {
@@ -504,12 +514,12 @@
         function openCheckout() {
             toggleCart();
             document.getElementById('checkout-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
         }
 
         function closeCheckout() {
             document.getElementById('checkout-modal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
+            document.body.classList.remove('modal-open');
         }
 
         function submitOrder(e) {
@@ -525,7 +535,7 @@
             
             closeCheckout();
             document.getElementById('success-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
         }
 
         function handleFileSelect(event) {
@@ -580,7 +590,7 @@
             document.getElementById('upload-prompt').classList.remove('hidden');
             document.getElementById('upload-success').classList.add('hidden');
             document.getElementById('submit-receipt-btn').disabled = true;
-            document.body.style.overflow = 'auto';
+            document.body.classList.remove('modal-open');
         }
 
         renderProducts();
