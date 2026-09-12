@@ -1,12 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AER GEAR STUDIO | Minimalist Carry & FPS Store</title>
-    <!-- Tailwind CSS with custom font smoothing -->
+    <!-- Tailwind CSS with custom typography & utilities -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            950: '#09090b',
+                            900: '#121215',
+                            800: '#1c1c22',
+                            700: '#272730',
+                            600: '#3f3f4a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
@@ -28,47 +51,70 @@
         })();
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-header {
+            background: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .hero-glow {
+            background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.08) 0%, rgba(9, 9, 11, 0) 70%);
+        }
+        /* Custom scrollbar for sleek dark mode */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #272730; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f4a; }
     </style>
 </head>
-<body class="bg-zinc-50 text-zinc-900 antialiased selection:bg-black selection:text-white">
+<body class="bg-dark-950 text-zinc-100 antialiased selection:bg-white selection:text-black">
 
-    <!-- Header -->
-    <header class="bg-white/85 backdrop-blur-md border-b border-zinc-200/80 sticky top-0 z-50 transition-all">
+    <!-- Header / Navigation -->
+    <header class="glass-header border-b border-zinc-800/80 sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <span class="text-xl font-extrabold tracking-tighter">AER GEAR</span>
-                <span class="text-[10px] uppercase tracking-widest bg-zinc-100 px-2.5 py-1 rounded-full font-semibold text-zinc-600 border border-zinc-200">HK Studio</span>
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-9 h-9 rounded-xl bg-white text-black flex items-center justify-center font-black tracking-tighter text-sm shadow-inner group-hover:scale-105 transition">AG</div>
+                <div>
+                    <span class="text-base font-extrabold tracking-tight block leading-none">AER GEAR</span>
+                    <span class="text-[9px] uppercase tracking-widest text-zinc-400 font-semibold mt-1 block">HK Studio</span>
+                </div>
             </div>
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-zinc-600">
-                <button onclick="scrollToSection('shop')" class="hover:text-black transition">Collection</button>
-                <button onclick="scrollToSection('policy')" class="hover:text-black transition">Delivery & FPS</button>
+            <nav class="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-wider uppercase text-zinc-400">
+                <button onclick="scrollToSection('shop')" class="hover:text-white transition py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-white hover:after:w-full after:transition-all">Collection</button>
+                <button onclick="scrollToSection('policy')" class="hover:text-white transition py-2 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-white hover:after:w-full after:transition-all">Delivery & FPS</button>
             </nav>
             <div class="flex items-center space-x-4">
-                <button onclick="toggleCart()" class="relative bg-black text-white px-5 py-2.5 rounded-full text-sm font-semibold flex items-center space-x-2 hover:bg-zinc-800 transition shadow-sm">
+                <button onclick="toggleCart()" class="relative bg-white text-black px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider flex items-center space-x-2.5 hover:bg-zinc-200 transition shadow-lg shadow-white/5">
                     <i class="fa-solid fa-bag-shopping text-xs"></i>
                     <span>Cart</span>
-                    <span id="cart-count" class="bg-white text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    <span id="cart-count" class="bg-black text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative bg-zinc-950 text-white py-24 px-6 overflow-hidden">
-        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#383838_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+    <section class="relative bg-dark-950 text-white py-28 px-6 overflow-hidden">
+        <div class="absolute inset-0 hero-glow pointer-events-none"></div>
+        <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#52525b_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
         <div class="max-w-4xl mx-auto text-center relative z-10">
-            <span class="inline-block text-xs uppercase tracking-[0.25em] text-zinc-400 mb-4 font-semibold bg-zinc-900 px-3.5 py-1.5 rounded-full border border-zinc-800">2026 Collection Available Now</span>
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">Engineered for the City.</h1>
-            <p class="text-zinc-400 text-base md:text-lg max-w-xl mx-auto mb-10 font-normal leading-relaxed">Minimalist carry solutions designed for modern urban life. Direct secure delivery across Hong Kong.</p>
-            <div class="inline-flex flex-wrap justify-center gap-4 text-xs font-medium text-zinc-300">
-                <div class="flex items-center space-x-2 bg-zinc-900/80 border border-zinc-800 px-4 py-2.5 rounded-full">
-                    <i class="fa-solid fa-truck-fast text-white"></i>
+            <div class="inline-flex items-center space-x-2 text-xs uppercase tracking-[0.25em] text-zinc-300 mb-6 font-semibold bg-dark-800/90 px-4 py-2 rounded-full border border-zinc-700/60 shadow-inner">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>2026 Collection Available Now</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight mb-6 leading-[1.08] text-transparent bg-clip-text bg-gradient-to-b from-white via-zinc-100 to-zinc-400">
+                Engineered for the City.
+            </h1>
+            <p class="text-zinc-400 text-base md:text-lg max-w-xl mx-auto mb-10 font-normal leading-relaxed">
+                Minimalist carry solutions designed for modern urban life. Direct secure delivery across Hong Kong.
+            </p>
+            <div class="inline-flex flex-wrap justify-center gap-3 text-xs font-semibold text-zinc-300">
+                <div class="flex items-center space-x-2.5 bg-dark-900/90 border border-zinc-800/80 px-4 py-3 rounded-2xl shadow-sm">
+                    <i class="fa-solid fa-truck-fast text-zinc-300"></i>
                     <span>SF Express Delivery (Within 1 Week)</span>
                 </div>
-                <div class="flex items-center space-x-2 bg-zinc-900/80 border border-zinc-800 px-4 py-2.5 rounded-full">
-                    <i class="fa-solid fa-qrcode text-white"></i>
+                <div class="flex items-center space-x-2.5 bg-dark-900/90 border border-zinc-800/80 px-4 py-3 rounded-2xl shadow-sm">
+                    <i class="fa-solid fa-qrcode text-zinc-300"></i>
                     <span>Secure FPS Payment</span>
                 </div>
             </div>
@@ -76,69 +122,78 @@
     </section>
 
     <!-- Main Content & Product Grid -->
-    <main id="shop" class="max-w-7xl mx-auto px-6 py-20">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-zinc-200 pb-6">
+    <main id="shop" class="max-w-7xl mx-auto px-6 py-24 border-t border-zinc-900">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-zinc-800 pb-6">
             <div>
-                <span class="text-xs uppercase tracking-widest text-zinc-400 font-bold block mb-1">Catalogue</span>
-                <h2 class="text-3xl font-extrabold tracking-tight text-zinc-900">All Backpacks & Slings</h2>
+                <span class="text-[11px] uppercase tracking-[0.2em] text-zinc-400 font-bold block mb-1">Catalogue</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white">All Backpacks & Slings</h2>
             </div>
-            <span class="text-xs font-semibold text-zinc-500 mt-2 md:mt-0 bg-zinc-200/60 px-3 py-1.5 rounded-lg" id="item-count-label">Loading items...</span>
+            <span class="text-xs font-mono font-semibold text-zinc-400 mt-3 md:mt-0 bg-dark-900 border border-zinc-800 px-4 py-2 rounded-xl" id="item-count-label">Loading items...</span>
         </div>
 
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <!-- Products injected via JavaScript -->
         </div>
     </main>
 
     <!-- Delivery & Payment Policy Section -->
-    <section id="policy" class="bg-zinc-100 py-20 border-t border-zinc-200">
+    <section id="policy" class="bg-dark-900 py-24 border-t border-zinc-800/80">
         <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-8">
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-zinc-200/60">
-                <div class="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center text-zinc-900 mb-4 font-bold">
-                    <i class="fa-solid fa-qrcode"></i>
+            <div class="bg-dark-950 p-8 md:p-10 rounded-3xl shadow-xl border border-zinc-800/60 relative overflow-hidden group hover:border-zinc-700 transition">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-zinc-800/10 rounded-full blur-2xl group-hover:bg-zinc-700/25 transition"></div>
+                <div class="w-12 h-12 rounded-2xl bg-dark-800 border border-zinc-700 flex items-center justify-center text-zinc-200 mb-6 font-bold shadow-inner">
+                    <i class="fa-solid fa-qrcode text-base"></i>
                 </div>
-                <h3 class="font-bold text-lg mb-2 text-zinc-900">FPS Fast Payment System</h3>
-                <p class="text-zinc-600 text-sm leading-relaxed">We accept <strong>FPS transfer</strong> exclusively. After checkout, you will receive our FPS ID and order reference. Please upload your payment screen capture immediately to confirm your slot.</p>
+                <h3 class="font-extrabold text-xl mb-3 text-white tracking-tight">FPS Fast Payment System</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed font-normal">
+                    We accept <strong class="text-zinc-200 font-semibold">FPS transfer</strong> exclusively. After checkout, you will receive our FPS ID and order reference. Please upload your payment screen capture immediately to confirm your slot.
+                </p>
             </div>
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-zinc-200/60">
-                <div class="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center text-zinc-900 mb-4 font-bold">
-                    <i class="fa-solid fa-box-open"></i>
+            <div class="bg-dark-950 p-8 md:p-10 rounded-3xl shadow-xl border border-zinc-800/60 relative overflow-hidden group hover:border-zinc-700 transition">
+                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-zinc-800/10 rounded-full blur-2xl group-hover:bg-zinc-700/25 transition"></div>
+                <div class="w-12 h-12 rounded-2xl bg-dark-800 border border-zinc-700 flex items-center justify-center text-zinc-200 mb-6 font-bold shadow-inner">
+                    <i class="fa-solid fa-box-open text-base"></i>
                 </div>
-                <h3 class="font-bold text-lg mb-2 text-zinc-900">SF Express Delivery</h3>
-                <p class="text-zinc-600 text-sm leading-relaxed">Swift and reliable doorstep or SF Locker delivery throughout Hong Kong. Once payment validation is complete, orders are dispatched within <strong>1 week</strong>.</p>
+                <h3 class="font-extrabold text-xl mb-3 text-white tracking-tight">SF Express Delivery</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed font-normal">
+                    Swift and reliable doorstep or SF Locker delivery throughout Hong Kong. Once payment validation is complete, orders are dispatched within <strong class="text-zinc-200 font-semibold">1 week</strong>.
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-zinc-950 text-zinc-400 py-12 text-center text-xs tracking-wider uppercase border-t border-zinc-900">
-        <p>&copy; 2026 Aer Gear Studio (HK). All rights reserved.</p>
+    <footer class="bg-dark-950 text-zinc-500 py-16 text-center text-xs tracking-wider uppercase border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span class="font-extrabold tracking-tighter text-zinc-300 text-sm">AER GEAR STUDIO (HK)</span>
+            <p>&copy; 2026 All rights reserved.</p>
+        </div>
     </footer>
 
     <!-- Slide-over Cart Drawer -->
     <div id="cart-drawer" class="fixed inset-0 overflow-hidden z-55 hidden">
-        <div class="absolute inset-0 bg-zinc-950/40 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute inset-0 bg-dark-950/70 backdrop-blur-md transition-opacity" onclick="toggleCart()"></div>
         <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
-            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col transform transition-transform">
+            <div class="w-screen max-w-md bg-dark-900 border-l border-zinc-800 shadow-2xl flex flex-col transform transition-transform">
                 <!-- Cart Header -->
-                <div class="p-6 bg-zinc-950 text-white flex justify-between items-center">
-                    <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-bag-shopping text-xs"></i>
-                        <h3 class="font-bold text-base tracking-tight">Your Shopping Cart</h3>
+                <div class="p-6 bg-dark-950 border-b border-zinc-800 text-white flex justify-between items-center">
+                    <div class="flex items-center space-x-2.5">
+                        <i class="fa-solid fa-bag-shopping text-xs text-zinc-400"></i>
+                        <h3 class="font-bold text-sm uppercase tracking-wider text-zinc-200">Your Shopping Cart</h3>
                     </div>
-                    <button onclick="toggleCart()" class="text-zinc-400 hover:text-white text-lg transition">&times;</button>
+                    <button onclick="toggleCart()" class="w-8 h-8 rounded-full bg-dark-800 text-zinc-400 hover:text-white flex items-center justify-center transition">&times;</button>
                 </div>
                 <!-- Cart Items Container -->
-                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-zinc-100">
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-zinc-800/60">
                     <!-- Dynamic items -->
                 </div>
                 <!-- Cart Footer / Checkout action -->
-                <div class="p-6 bg-zinc-50 border-t border-zinc-200">
+                <div class="p-6 bg-dark-950 border-t border-zinc-800">
                     <div class="flex justify-between items-center text-base font-bold mb-5">
-                        <span class="text-zinc-600 font-medium">Subtotal</span>
-                        <span id="cart-total" class="text-zinc-900 text-xl tracking-tight">HK$0</span>
+                        <span class="text-zinc-400 text-xs uppercase tracking-wider font-semibold">Subtotal</span>
+                        <span id="cart-total" class="text-white text-xl font-mono tracking-tight">HK$0</span>
                     </div>
-                    <button onclick="openCheckout()" id="checkout-btn" class="w-full bg-zinc-950 text-white py-3.5 rounded-xl font-bold text-sm hover:bg-zinc-800 transition disabled:opacity-40 disabled:cursor-not-allowed shadow-sm">
+                    <button onclick="openCheckout()" id="checkout-btn" class="w-full bg-white text-black py-4 rounded-2xl font-extrabold text-xs uppercase tracking-widest hover:bg-zinc-200 transition disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-white/5">
                         Proceed to Checkout (FPS)
                     </button>
                 </div>
@@ -147,39 +202,39 @@
     </div>
 
     <!-- Checkout Modal -->
-    <div id="checkout-modal" class="fixed inset-0 z-60 bg-zinc-950/50 backdrop-blur-sm flex items-center justify-center hidden px-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-8 overflow-y-auto max-h-[90vh] shadow-2xl border border-zinc-100">
-            <div class="flex justify-between items-center mb-6 pb-4 border-b border-zinc-100">
+    <div id="checkout-modal" class="fixed inset-0 z-60 bg-dark-950/80 backdrop-blur-md flex items-center justify-center hidden px-4 py-8">
+        <div class="bg-dark-900 border border-zinc-800 rounded-3xl max-w-lg w-full p-8 overflow-y-auto max-h-[90vh] shadow-2xl">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-zinc-800">
                 <div>
-                    <h3 class="text-xl font-extrabold text-zinc-900 tracking-tight">Shipping & Contact</h3>
-                    <p class="text-xs text-zinc-500 mt-0.5">Please provide details for your SF Express shipment.</p>
+                    <h3 class="text-xl font-extrabold text-white tracking-tight">Shipping & Contact</h3>
+                    <p class="text-xs text-zinc-400 mt-0.5">Please provide details for your SF Express shipment.</p>
                 </div>
-                <button onclick="closeCheckout()" class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-500 hover:bg-zinc-200 hover:text-zinc-900 transition">&times;</button>
+                <button onclick="closeCheckout()" class="w-8 h-8 rounded-full bg-dark-800 flex items-center justify-center text-zinc-400 hover:bg-zinc-700 hover:text-white transition">&times;</button>
             </div>
             <form id="order-form" onsubmit="submitOrder(event)">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">Full Name</label>
-                        <input type="text" required id="cust-name" class="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-zinc-900 focus:outline-none transition" placeholder="e.g. Alex Wong">
+                        <label class="block text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-2">Full Name</label>
+                        <input type="text" required id="cust-name" class="w-full px-4 py-3.5 bg-dark-950 border border-zinc-800 rounded-2xl text-sm text-zinc-100 placeholder-zinc-600 focus:bg-dark-900 focus:border-zinc-600 focus:outline-none transition" placeholder="e.g. Alex Wong">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">Email Address</label>
-                        <input type="email" required id="cust-email" class="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-zinc-900 focus:outline-none transition" placeholder="name@example.com">
-                        <span class="text-[11px] text-zinc-400 mt-1 block">For automated order status & payment updates</span>
+                        <label class="block text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-2">Email Address</label>
+                        <input type="email" required id="cust-email" class="w-full px-4 py-3.5 bg-dark-950 border border-zinc-800 rounded-2xl text-sm text-zinc-100 placeholder-zinc-600 focus:bg-dark-900 focus:border-zinc-600 focus:outline-none transition" placeholder="name@example.com">
+                        <span class="text-[11px] text-zinc-500 mt-1.5 block">For automated order status & payment updates</span>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">Phone Number</label>
-                        <input type="tel" required id="cust-phone" class="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-zinc-900 focus:outline-none transition" placeholder="e.g. 9123 4567">
+                        <label class="block text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-2">Phone Number</label>
+                        <input type="tel" required id="cust-phone" class="w-full px-4 py-3.5 bg-dark-950 border border-zinc-800 rounded-2xl text-sm text-zinc-100 placeholder-zinc-600 focus:bg-dark-900 focus:border-zinc-600 focus:outline-none transition" placeholder="e.g. 9123 4567">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">SF Delivery Address / SF Locker Code</label>
-                        <textarea required id="cust-address" rows="3" placeholder="e.g. H830123 (SF Locker) or Residential/Commercial address" class="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-zinc-900 focus:outline-none transition resize-none"></textarea>
+                        <label class="block text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-2">SF Delivery Address / SF Locker Code</label>
+                        <textarea required id="cust-address" rows="3" placeholder="e.g. H830123 (SF Locker) or Residential/Commercial address" class="w-full px-4 py-3.5 bg-dark-950 border border-zinc-800 rounded-2xl text-sm text-zinc-100 placeholder-zinc-600 focus:bg-dark-900 focus:border-zinc-600 focus:outline-none transition resize-none"></textarea>
                     </div>
-                    <div class="bg-zinc-100 border border-zinc-200 p-4 rounded-2xl text-xs text-zinc-600">
-                        <p class="font-bold text-zinc-900 mb-1 flex items-center"><i class="fa-solid fa-qrcode mr-1.5 text-zinc-800"></i> FPS Payment Method</p>
+                    <div class="bg-dark-950 border border-zinc-800/80 p-4 rounded-2xl text-xs text-zinc-400">
+                        <p class="font-bold text-zinc-200 mb-1 flex items-center"><i class="fa-solid fa-qrcode mr-2 text-zinc-300"></i> FPS Payment Method</p>
                         <p class="leading-relaxed">After submission, you will receive our FPS details to complete payment and instantly upload your receipt.</p>
                     </div>
-                    <button type="submit" class="w-full bg-zinc-950 text-white py-3.5 rounded-xl font-bold text-sm hover:bg-zinc-800 transition shadow-sm">
+                    <button type="submit" class="w-full bg-white text-black py-4 rounded-2xl font-extrabold text-xs uppercase tracking-widest hover:bg-zinc-200 transition shadow-lg shadow-white/5">
                         Place Order & Proceed to Payment
                     </button>
                 </div>
@@ -188,61 +243,61 @@
     </div>
 
     <!-- FPS Payment & Upload Screen Capture Modal -->
-    <div id="success-modal" class="fixed inset-0 z-70 bg-zinc-950/60 backdrop-blur-sm flex items-center justify-center hidden px-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center max-h-[90vh] overflow-y-auto shadow-2xl border border-zinc-100">
-            <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-base shadow-sm">
+    <div id="success-modal" class="fixed inset-0 z-70 bg-dark-950/85 backdrop-blur-md flex items-center justify-center hidden px-4 py-8">
+        <div class="bg-dark-900 border border-zinc-800 rounded-3xl max-w-md w-full p-8 text-center max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="w-12 h-12 bg-emerald-950/80 text-emerald-400 border border-emerald-800/60 rounded-2xl flex items-center justify-center mx-auto mb-4 text-base shadow-sm">
                 <i class="fa-solid fa-check"></i>
             </div>
-            <h3 class="text-xl font-extrabold text-zinc-900 tracking-tight mb-1">Order Placed Successfully</h3>
-            <p class="text-zinc-500 text-xs mb-6">Complete your FPS transfer and upload your payment screen capture below.</p>
+            <h3 class="text-xl font-extrabold text-white tracking-tight mb-1">Order Placed Successfully</h3>
+            <p class="text-zinc-400 text-xs mb-6">Complete your FPS transfer and upload your payment screen capture below.</p>
             
-            <div class="bg-zinc-50 p-5 rounded-2xl text-left text-xs mb-6 space-y-2 border border-zinc-200/60">
-                <div class="flex justify-between"><span class="text-zinc-500">Order ID:</span> <span class="font-mono font-bold text-zinc-900" id="display-order-id">AER-8842</span></div>
-                <div class="flex justify-between"><span class="text-zinc-500">FPS ID / Phone:</span> <span class="font-mono font-bold text-zinc-900">9876 5432 (AER SHOP)</span></div>
-                <div class="flex justify-between"><span class="text-zinc-500">Total Amount:</span> <span id="success-total" class="font-bold text-zinc-950 text-sm">HK$0</span></div>
+            <div class="bg-dark-950 border border-zinc-800/80 p-5 rounded-2xl text-left text-xs mb-6 space-y-2.5">
+                <div class="flex justify-between"><span class="text-zinc-500">Order ID:</span> <span class="font-mono font-bold text-zinc-200" id="display-order-id">AER-8842</span></div>
+                <div class="flex justify-between"><span class="text-zinc-500">FPS ID / Phone:</span> <span class="font-mono font-bold text-zinc-200">9876 5432 (AER SHOP)</span></div>
+                <div class="flex justify-between"><span class="text-zinc-500">Total Amount:</span> <span id="success-total" class="font-mono font-bold text-white text-sm">HK$0</span></div>
             </div>
 
             <!-- Upload Receipt Section -->
-            <div class="border-2 border-dashed border-zinc-200 p-6 rounded-2xl mb-6 text-center bg-zinc-50/50 hover:bg-zinc-100/50 transition cursor-pointer">
+            <div class="border-2 border-dashed border-zinc-800 p-6 rounded-2xl mb-6 text-center bg-dark-950/60 hover:bg-dark-950 transition cursor-pointer group">
                 <input type="file" id="receipt-file" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
                 <label for="receipt-file" class="cursor-pointer block">
                     <div id="upload-prompt">
-                        <div class="w-10 h-10 rounded-xl bg-white border border-zinc-200 flex items-center justify-center mx-auto mb-2.5 text-zinc-600 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-dark-900 border border-zinc-700/80 flex items-center justify-center mx-auto mb-2.5 text-zinc-300 shadow-sm group-hover:scale-105 transition">
                             <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
                         </div>
-                        <p class="text-xs font-bold text-zinc-900 mb-0.5">Upload payment screen capture</p>
-                        <p class="text-[10px] text-zinc-400">Supports PNG, JPG, JPEG</p>
+                        <p class="text-xs font-bold text-zinc-200 mb-0.5">Upload payment screen capture</p>
+                        <p class="text-[10px] text-zinc-500">Supports PNG, JPG, JPEG</p>
                     </div>
                     <div id="upload-success" class="hidden">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center mx-auto mb-2.5 text-emerald-600">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-950 border border-emerald-800 flex items-center justify-center mx-auto mb-2.5 text-emerald-400">
                             <i class="fa-solid fa-file-circle-check text-sm"></i>
                         </div>
-                        <p id="file-name-display" class="text-xs font-bold text-emerald-700 truncate max-w-[260px] mx-auto mb-0.5"></p>
-                        <p class="text-[10px] text-zinc-400">Click to replace file</p>
+                        <p id="file-name-display" class="text-xs font-bold text-emerald-400 font-mono truncate max-w-[260px] mx-auto mb-0.5"></p>
+                        <p class="text-[10px] text-zinc-500">Click to replace file</p>
                     </div>
                 </label>
             </div>
 
-            <button onclick="completeSubmission()" id="submit-receipt-btn" class="w-full bg-zinc-950 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-zinc-800 transition disabled:opacity-40 disabled:cursor-not-allowed shadow-sm">
+            <button onclick="completeSubmission()" id="submit-receipt-btn" class="w-full bg-white text-black py-4 rounded-2xl font-extrabold text-xs uppercase tracking-widest hover:bg-zinc-200 transition disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-white/5">
                 Submit Payment Receipt & Finish
             </button>
         </div>
     </div>
 
     <!-- Final Confirmation Modal (Clean Success Notice) -->
-    <div id="final-modal" class="fixed inset-0 z-80 bg-zinc-950/60 backdrop-blur-sm flex items-center justify-center hidden px-4">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center shadow-2xl border border-zinc-100">
+    <div id="final-modal" class="fixed inset-0 z-80 bg-dark-950/85 backdrop-blur-md flex items-center justify-center hidden px-4">
+        <div class="bg-dark-900 border border-zinc-800 rounded-3xl max-w-sm w-full p-8 text-center shadow-2xl">
             <div id="email-loader" class="hidden mb-4">
-                <i class="fa-solid fa-spinner animate-spin text-2xl text-zinc-900"></i>
-                <p class="text-xs text-zinc-500 mt-2">Processing your submission...</p>
+                <i class="fa-solid fa-spinner animate-spin text-2xl text-white"></i>
+                <p class="text-xs text-zinc-400 mt-3 font-medium">Processing your submission...</p>
             </div>
-            <div id="email-success-icon" class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-base shadow-sm">
+            <div id="email-success-icon" class="w-12 h-12 bg-emerald-950 text-emerald-400 border border-emerald-800 rounded-2xl flex items-center justify-center mx-auto mb-4 text-base shadow-sm">
                 <i class="fa-solid fa-circle-check"></i>
             </div>
-            <h3 id="email-title" class="text-xl font-extrabold text-zinc-900 tracking-tight mb-2">Receipt Uploaded Successfully</h3>
-            <p class="text-xs text-zinc-500 leading-relaxed mb-6">Your payment proof has been securely recorded, and an order confirmation has been dispatched to <span id="sent-to-email" class="font-mono font-bold text-zinc-800"></span>.</p>
+            <h3 id="email-title" class="text-xl font-extrabold text-white tracking-tight mb-2">Receipt Uploaded Successfully</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-6">Your payment proof has been securely recorded, and an order confirmation has been dispatched to <span id="sent-to-email" class="font-mono font-bold text-zinc-200"></span>.</p>
 
-            <button onclick="resetAndClose()" class="w-full bg-zinc-950 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-zinc-800 transition shadow-sm">Back to Store</button>
+            <button onclick="resetAndClose()" class="w-full bg-white text-black py-4 rounded-2xl font-extrabold text-xs uppercase tracking-widest hover:bg-zinc-200 transition shadow-lg shadow-white/5">Back to Store</button>
         </div>
     </div>
 
@@ -291,16 +346,17 @@
             const grid = document.getElementById('product-grid');
             document.getElementById('item-count-label').innerText = `${products.length} Items Available`;
             grid.innerHTML = products.map(p => `
-                <div class="bg-white rounded-2xl border border-zinc-200/80 hover:border-zinc-300 shadow-sm hover:shadow-xl transition duration-300 overflow-hidden flex flex-col group">
-                    <div class="h-60 overflow-hidden bg-zinc-100 relative">
-                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                <div class="bg-dark-900 rounded-3xl border border-zinc-800/80 hover:border-zinc-700 shadow-lg hover:shadow-2xl transition duration-500 overflow-hidden flex flex-col group">
+                    <div class="h-64 overflow-hidden bg-dark-950 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900/40 to-transparent z-10 pointer-events-none"></div>
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100">
                     </div>
-                    <div class="p-5 flex flex-col flex-1 justify-between">
+                    <div class="p-6 flex flex-col flex-1 justify-between">
                         <div>
-                            <h3 class="font-bold text-zinc-900 capitalize tracking-tight mb-1">${p.name}</h3>
-                            <p class="text-zinc-900 font-extrabold text-base">HK$ ${p.price}</p>
+                            <h3 class="font-extrabold text-white capitalize tracking-tight mb-2 text-base">${p.name}</h3>
+                            <p class="text-zinc-200 font-mono font-extrabold text-sm">HK$ ${p.price}</p>
                         </div>
-                        <button onclick="addToCart(${p.id})" class="mt-5 w-full bg-zinc-950 text-white py-3 rounded-xl font-semibold text-xs uppercase tracking-wider hover:bg-zinc-800 transition flex items-center justify-center space-x-2">
+                        <button onclick="addToCart(${p.id})" class="mt-6 w-full bg-white text-black py-3.5 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-zinc-200 transition flex items-center justify-center space-x-2 shadow-sm">
                             <i class="fa-solid fa-cart-plus text-xs"></i>
                             <span>Add to Cart</span>
                         </button>
@@ -350,7 +406,7 @@
             countEl.innerText = totalCount;
 
             if (cart.length === 0) {
-                itemsContainer.innerHTML = `<p class="text-zinc-400 text-center py-12 text-sm font-medium">Your cart is empty.</p>`;
+                itemsContainer.innerHTML = `<p class="text-zinc-500 text-center py-16 text-xs font-medium uppercase tracking-widest">Your cart is empty.</p>`;
                 totalEl.innerText = "HK$0";
                 checkoutBtn.disabled = true;
                 return;
@@ -363,17 +419,17 @@
                 totalPrice += item.price * item.qty;
                 return `
                     <div class="py-4 flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <img src="${item.image}" class="w-14 h-14 object-cover rounded-xl border border-zinc-200/60">
+                        <div class="flex items-center space-x-3.5">
+                            <img src="${item.image}" class="w-14 h-14 object-cover rounded-2xl border border-zinc-800">
                             <div>
-                                <h4 class="font-bold text-sm text-zinc-900 capitalize tracking-tight">${item.name}</h4>
-                                <p class="text-xs text-zinc-500 font-medium">HK$ ${item.price} each</p>
+                                <h4 class="font-extrabold text-sm text-white capitalize tracking-tight mb-0.5">${item.name}</h4>
+                                <p class="text-xs text-zinc-400 font-mono">HK$ ${item.price} each</p>
                             </div>
                         </div>
-                        <div class="flex items-center space-x-2 bg-zinc-50 border border-zinc-200/60 p-1 rounded-xl">
-                            <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 bg-white border border-zinc-200 rounded-lg flex items-center justify-center font-bold text-xs text-zinc-600 hover:bg-zinc-100 transition">-</button>
-                            <span class="text-xs font-extrabold w-5 text-center text-zinc-900">${item.qty}</span>
-                            <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 bg-white border border-zinc-200 rounded-lg flex items-center justify-center font-bold text-xs text-zinc-600 hover:bg-zinc-100 transition">+</button>
+                        <div class="flex items-center space-x-2 bg-dark-950 border border-zinc-800 p-1.5 rounded-xl">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 bg-dark-900 border border-zinc-800 rounded-lg flex items-center justify-center font-bold text-xs text-zinc-300 hover:bg-dark-800 transition">-</button>
+                            <span class="text-xs font-mono font-bold w-5 text-center text-white">${item.qty}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 bg-dark-900 border border-zinc-800 rounded-lg flex items-center justify-center font-bold text-xs text-zinc-300 hover:bg-dark-800 transition">+</button>
                         </div>
                     </div>
                 `;
