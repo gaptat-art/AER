@@ -106,7 +106,7 @@
         </div>
     </section>
 
-    <!-- Main Content & Product Grid (Mobile First: 1 col on mobile, 2+ on larger screens) -->
+    <!-- Main Content & Product Grid -->
     <main id="shop" class="max-w-7xl mx-auto px-4 py-12 border-t border-zinc-900">
         <div class="flex flex-col mb-8 border-b border-zinc-800 pb-4">
             <span class="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-bold block mb-1">Catalogue</span>
@@ -153,15 +153,15 @@
         </div>
     </footer>
 
-    <!-- Product Details Modal -->
+    <!-- Product Details Modal (Fixed Scrolling & Background Lock) -->
     <div id="product-detail-modal" class="fixed inset-0 z-60 bg-dark-950/90 backdrop-blur-md flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
-        <div class="bg-dark-900 border-t sm:border border-zinc-800 rounded-t-3xl sm:rounded-3xl max-w-xl w-full p-6 overflow-y-auto max-h-[85vh] shadow-2xl relative animate-in slide-in-from-bottom duration-300">
+        <div class="bg-dark-900 border-t sm:border border-zinc-800 rounded-t-3xl sm:rounded-3xl max-w-xl w-full p-6 overflow-y-auto max-h-[85vh] shadow-2xl relative">
             <button onclick="closeProductModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-dark-800 flex items-center justify-center text-zinc-400 hover:text-white transition z-10">&times;</button>
             <div id="product-detail-content"></div>
         </div>
     </div>
 
-    <!-- Slide-over Cart Drawer (Mobile First Full Drawer) -->
+    <!-- Slide-over Cart Drawer -->
     <div id="cart-drawer" class="fixed inset-0 overflow-hidden z-55 hidden">
         <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
         <div class="absolute inset-y-0 right-0 max-w-full flex">
@@ -405,7 +405,7 @@
             if (!product) return;
 
             document.getElementById('product-detail-content').innerHTML = `
-                <div class="rounded-xl overflow-hidden bg-dark-950 border border-zinc-800 h-56 mb-4">
+                <div class="rounded-xl overflow-hidden bg-dark-950 border border-zinc-800 h-56 mb-4 shrink-0">
                     <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
                 </div>
                 <h2 class="text-xl font-black text-white capitalize tracking-tight mb-1">${product.name}</h2>
@@ -413,19 +413,34 @@
                 <button onclick="addToCart(${product.id}); closeProductModal();" class="w-full bg-white text-black py-3 rounded-xl font-extrabold text-[11px] uppercase tracking-widest mb-4 shadow-lg">
                     Add to Cart
                 </button>
-                <div class="space-y-2 text-[11px] text-zinc-400 border-t border-zinc-800 pt-3">
+                <div class="space-y-2 text-[11px] text-zinc-400 border-t border-zinc-800 pt-3 mb-4">
+                    <p class="font-bold text-zinc-200 mb-1 uppercase tracking-wider text-[10px]">Description & Features</p>
                     ${product.description.map(d => `<p>• ${d}</p>`).join('')}
                 </div>
+                <div class="space-y-1 text-[11px] text-zinc-400 border-t border-zinc-800 pt-3">
+                    <p class="font-bold text-zinc-200 mb-1 uppercase tracking-wider text-[10px]">Specifications</p>
+                    <p>• Dimensions: ${product.specs.dimensions}</p>
+                    <p>• Volume: ${product.specs.volume}</p>
+                    <p>• Weight: ${product.specs.weight}</p>
+                </div>
             `;
+            
+            // Lock body scroll and open modal
+            document.body.style.overflow = 'hidden';
             document.getElementById('product-detail-modal').classList.remove('hidden');
         }
 
         function closeProductModal() {
+            // Restore body scroll and close modal
+            document.body.style.overflow = 'auto';
             document.getElementById('product-detail-modal').classList.add('hidden');
         }
 
         function toggleCart() {
-            document.getElementById('cart-drawer').classList.toggle('hidden');
+            const drawer = document.getElementById('cart-drawer');
+            const isHidden = drawer.classList.contains('hidden');
+            drawer.classList.toggle('hidden');
+            document.body.style.overflow = isHidden ? 'hidden' : 'auto';
         }
 
         function addToCart(id) {
@@ -489,10 +504,12 @@
         function openCheckout() {
             toggleCart();
             document.getElementById('checkout-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeCheckout() {
             document.getElementById('checkout-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
         function submitOrder(e) {
@@ -508,6 +525,7 @@
             
             closeCheckout();
             document.getElementById('success-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
 
         function handleFileSelect(event) {
@@ -562,6 +580,7 @@
             document.getElementById('upload-prompt').classList.remove('hidden');
             document.getElementById('upload-success').classList.add('hidden');
             document.getElementById('submit-receipt-btn').disabled = true;
+            document.body.style.overflow = 'auto';
         }
 
         renderProducts();
