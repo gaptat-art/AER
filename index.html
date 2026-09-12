@@ -44,12 +44,9 @@
     </script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-        /* Utility class to lock background scrolling cleanly on mobile & desktop */
+        /* Clean body scroll lock without breaking page layout */
         body.modal-open {
             overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100%;
         }
         .glass-header {
             background: rgba(9, 9, 11, 0.9);
@@ -161,18 +158,18 @@
     </footer>
 
     <!-- Product Details Modal -->
-    <div id="product-detail-modal" class="fixed inset-0 z-60 bg-dark-950/90 backdrop-blur-md flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
-        <div class="bg-dark-900 border-t sm:border border-zinc-800 rounded-t-3xl sm:rounded-3xl max-w-xl w-full p-6 overflow-y-auto max-h-[85vh] shadow-2xl relative">
+    <div id="product-detail-modal" class="fixed inset-0 z-[100] bg-dark-950/80 backdrop-blur-md flex items-end sm:items-center justify-center hidden p-0 sm:p-4 overflow-y-auto">
+        <div class="bg-dark-900 border-t sm:border border-zinc-800 rounded-t-3xl sm:rounded-3xl max-w-xl w-full p-6 max-h-[85vh] overflow-y-auto shadow-2xl relative my-auto">
             <button onclick="closeProductModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-dark-800 flex items-center justify-center text-zinc-400 hover:text-white transition z-10">&times;</button>
             <div id="product-detail-content"></div>
         </div>
     </div>
 
     <!-- Slide-over Cart Drawer -->
-    <div id="cart-drawer" class="fixed inset-0 overflow-hidden z-55 hidden">
+    <div id="cart-drawer" class="fixed inset-0 overflow-hidden z-[100] hidden">
         <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
         <div class="absolute inset-y-0 right-0 max-w-full flex">
-            <div class="w-screen max-w-sm bg-dark-900 border-l border-zinc-800 shadow-2xl flex flex-col">
+            <div class="w-screen max-w-sm bg-dark-900 border-l border-zinc-800 shadow-2xl flex flex-col relative z-10">
                 <div class="p-4 bg-dark-950 border-b border-zinc-800 text-white flex justify-between items-center">
                     <div class="flex items-center space-x-2">
                         <i class="fa-solid fa-bag-shopping text-xs text-zinc-400"></i>
@@ -195,8 +192,8 @@
     </div>
 
     <!-- Checkout Modal -->
-    <div id="checkout-modal" class="fixed inset-0 z-60 bg-dark-950/90 backdrop-blur-md flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
-        <div class="bg-dark-900 border-t sm:border border-zinc-800 rounded-t-3xl sm:rounded-3xl max-w-md w-full p-6 overflow-y-auto max-h-[85vh] shadow-2xl">
+    <div id="checkout-modal" class="fixed inset-0 z-[110] bg-dark-950/80 backdrop-blur-md flex items-end sm:items-center justify-center hidden p-0 sm:p-4 overflow-y-auto">
+        <div class="bg-dark-900 border-t sm:border border-zinc-800 rounded-t-3xl sm:rounded-3xl max-w-md w-full p-6 max-h-[85vh] overflow-y-auto shadow-2xl relative my-auto">
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-zinc-800">
                 <div>
                     <h3 class="text-lg font-extrabold text-white tracking-tight">Shipping Details</h3>
@@ -231,8 +228,8 @@
     </div>
 
     <!-- FPS Payment & Upload Modal -->
-    <div id="success-modal" class="fixed inset-0 z-70 bg-dark-950/90 backdrop-blur-md flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
-        <div class="bg-dark-900 border-t sm:border border-zinc-800 rounded-t-3xl sm:rounded-3xl max-w-sm w-full p-6 text-center max-h-[85vh] overflow-y-auto shadow-2xl">
+    <div id="success-modal" class="fixed inset-0 z-[120] bg-dark-950/80 backdrop-blur-md flex items-end sm:items-center justify-center hidden p-0 sm:p-4 overflow-y-auto">
+        <div class="bg-dark-900 border-t sm:border border-zinc-800 rounded-t-3xl sm:rounded-3xl max-w-sm w-full p-6 text-center max-h-[85vh] overflow-y-auto shadow-2xl relative my-auto">
             <div class="w-10 h-10 bg-emerald-950 text-emerald-400 border border-emerald-800/60 rounded-xl flex items-center justify-center mx-auto mb-3 text-sm">
                 <i class="fa-solid fa-check"></i>
             </div>
@@ -268,8 +265,8 @@
     </div>
 
     <!-- Final Confirmation Modal -->
-    <div id="final-modal" class="fixed inset-0 z-80 bg-dark-950/90 backdrop-blur-md flex items-center justify-center hidden p-4">
-        <div class="bg-dark-900 border border-zinc-800 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl">
+    <div id="final-modal" class="fixed inset-0 z-[130] bg-dark-950/80 backdrop-blur-md flex items-center justify-center hidden p-4">
+        <div class="bg-dark-900 border border-zinc-800 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative">
             <div id="email-loader" class="hidden mb-3">
                 <i class="fa-solid fa-spinner animate-spin text-xl text-white"></i>
                 <p class="text-[11px] text-zinc-400 mt-2 font-medium">Processing...</p>
