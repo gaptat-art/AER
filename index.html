@@ -60,7 +60,6 @@
         .hero-glow {
             background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.08) 0%, rgba(9, 9, 11, 0) 70%);
         }
-        /* Custom scrollbar for sleek dark mode */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #272730; border-radius: 4px; }
@@ -170,6 +169,16 @@
         </div>
     </footer>
 
+    <!-- Product Details Modal -->
+    <div id="product-detail-modal" class="fixed inset-0 z-60 bg-dark-950/85 backdrop-blur-md flex items-center justify-center hidden px-4 py-8">
+        <div class="bg-dark-900 border border-zinc-800 rounded-3xl max-w-3xl w-full p-6 md:p-10 overflow-y-auto max-h-[90vh] shadow-2xl relative">
+            <button onclick="closeProductModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-dark-800 flex items-center justify-center text-zinc-400 hover:bg-zinc-700 hover:text-white transition z-10">&times;</button>
+            <div id="product-detail-content">
+                <!-- Dynamic product info -->
+            </div>
+        </div>
+    </div>
+
     <!-- Slide-over Cart Drawer -->
     <div id="cart-drawer" class="fixed inset-0 overflow-hidden z-55 hidden">
         <div class="absolute inset-0 bg-dark-950/70 backdrop-blur-md transition-opacity" onclick="toggleCart()"></div>
@@ -278,7 +287,7 @@
                 </label>
             </div>
 
-            <button onclick="completeSubmission()" id="submit-receipt-btn" class="w-full bg-white text-black py-4 rounded-2xl font-extrabold text-xs uppercase tracking-widest hover:bg-zinc-200 transition disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-white/5">
+            <button onclick="completeSubmission()" id="submit-receipt-btn" class="w-full bg-white text-black py-4 rounded-2xl font-extrabold text-xs uppercase tracking-widest hover:bg-zinc-200 transition disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-white/5" disabled>
                 Submit Payment Receipt & Finish
             </button>
         </div>
@@ -304,39 +313,159 @@
     <!-- Script Application Logic -->
     <script>
         const products = [
-            { id: 1, name: "day pack 2", price: 659, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" },
-            { id: 2, name: "day pack 2 xpac", price: 719, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" },
-            { id: 3, name: "fit pack 3", price: 669, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
-            { id: 4, name: "fit pack 3 xpac", price: 719, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
-            { id: 5, name: "city pack", price: 609, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
-            { id: 6, name: "city pack xpac", price: 709, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
-            { id: 7, name: "city pack pro", price: 729, image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80" },
-            { id: 8, name: "city pack pro xpac", price: 829, image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80" },
-            { id: 9, name: "flight pack 3", price: 669, image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?auto=format&fit=crop&w=600&q=80" },
-            { id: 10, name: "flight pack 3 xpac", price: 779, image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?auto=format&fit=crop&w=600&q=80" },
-            { id: 11, name: "travel pack 3 small", price: 849, image: "https://images.unsplash.com/photo-1522039152336-936517a47f0f?auto=format&fit=crop&w=600&q=80" },
-            { id: 12, name: "travel pack 3 small xpac", price: 959, image: "https://images.unsplash.com/photo-1522039152336-936517a47f0f?auto=format&fit=crop&w=600&q=80" },
-            { id: 13, name: "travel pack 3", price: 859, image: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=600&q=80" },
-            { id: 14, name: "travel pack 3 xpac", price: 969, image: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=600&q=80" },
-            { id: 15, name: "travel pack 2", price: 779, image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80" },
-            { id: 16, name: "travel pack 2 xpac", price: 859, image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80" },
-            { id: 17, name: "travel pack 2 small", price: 749, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
-            { id: 18, name: "pro pack 20l", price: 779, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" },
-            { id: 19, name: "tech pack 2", price: 749, image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80" },
-            { id: 20, name: "slim pack", price: 569, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
-            { id: 21, name: "duffel pack 3 xpac", price: 769, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
-            { id: 22, name: "day sling 3", price: 439, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
-            { id: 23, name: "day sling 3 xpac", price: 469, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
-            { id: 24, name: "day sling 3 max", price: 459, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
-            { id: 25, name: "day sling 3 max xpac", price: 479, image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80" },
-            { id: 26, name: "city sling 2", price: 479, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
-            { id: 27, name: "city sling 2 xpac", price: 499, image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80" },
-            { id: 28, name: "travel sling 2 xpac", price: 629, image: "https://images.unsplash.com/photo-1522039152336-936517a47f0f?auto=format&fit=crop&w=600&q=80" },
-            { id: 29, name: "pro sling", price: 499, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80" },
-            { id: 30, name: "tech sling", price: 499, image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80" },
-            { id: 31, name: "city tote", price: 599, image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80" },
-            { id: 32, name: "gym tote", price: 629, image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80" },
-            { id: 33, name: "Travel kit 2 xpac", price: 449, image: "https://images.unsplash.com/photo-1522039152336-936517a47f0f?auto=format&fit=crop&w=600&q=80" }
+            { 
+                id: 1, 
+                name: "aer city pack 2", 
+                price: 659, 
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
+                description: [
+                    "1680D CORDURA® ballistic nylon exterior (bluesign® approved)",
+                    "YKK® zippers",
+                    "Duraflex® hardware",
+                    "Lightweight nylon ripstop liner (bluesign® approved)",
+                    "Smart organization for your everyday essentials",
+                    "Padded and suspended laptop pocket with soft lining (fits up to a 16\" laptop)",
+                    "Ergonomic harness system for enhanced comfort and fit",
+                    "Quick-access top pocket",
+                    "Exterior water bottle pocket",
+                    "Quick-grab top and side handles",
+                    "Hidden smart tracker pocket",
+                    "Luggage handle pass-through"
+                ],
+                specs: {
+                    dimensions: "Length: 18\" (46 cm) | Width: 12\" (30 cm) | Depth: 5.5\" (14 cm)",
+                    volume: "16 L",
+                    weight: "2.45 lbs"
+                }
+            },
+            { 
+                id: 2, 
+                name: "day pack 2 xpac", 
+                price: 719, 
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
+                description: [
+                    "VX-42 X-Pac™ sailcloth exterior by Dimension-Polyant® (weatherproof & rugged)",
+                    "YKK® AquaGuard® water-repellent zippers",
+                    "Fidlock® magnetic hardware elements",
+                    "High-visibility orange interior ripstop lining",
+                    "Custom padded suspended laptop compartment (up to 16\" devices)",
+                    "Advanced ergonomic shoulder harness system",
+                    "Quick-access fleece-lined top pocket",
+                    "Secure internal organizational pockets & key tether",
+                    "Dual exterior stretch water bottle pockets",
+                    "Discrete passport/airtag tracker pocket"
+                ],
+                specs: {
+                    dimensions: "Length: 18\" (46 cm) | Width: 12\" (30 cm) | Depth: 5.5\" (14 cm)",
+                    volume: "16 L",
+                    weight: "2.35 lbs"
+                }
+            },
+            { 
+                id: 3, 
+                name: "fit pack 3", 
+                price: 669, 
+                image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80",
+                description: [
+                    "1680D CORDURA® ballistic nylon exterior",
+                    "Versatile design for gym and work essentials",
+                    "Separate ventilated shoe compartment (fits up to men's size 13)",
+                    "Padded laptop pocket (fits up to 15.6\" laptop)",
+                    "Quick-access top pocket for small valuables",
+                    "Multiple internal pockets for gear organization",
+                    "Padded mesh back panel for enhanced comfort"
+                ],
+                specs: {
+                    dimensions: "Length: 17\" (43 cm) | Width: 12\" (30 cm) | Depth: 7\" (18 cm)",
+                    volume: "18.8 L",
+                    weight: "1.9 lbs"
+                }
+            },
+            { 
+                id: 4, 
+                name: "city pack", 
+                price: 609, 
+                image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80",
+                description: [
+                    "Compact everyday urban backpack",
+                    "1680D CORDURA® ballistic nylon",
+                    "Smart internal layout for tech accessories",
+                    "Padded laptop sleeve (fits up to 14\" laptop)",
+                    "Contoured shoulder straps for daily carry comfort"
+                ],
+                specs: {
+                    dimensions: "Length: 17\" (43 cm) | Width: 11\" (28 cm) | Depth: 5\" (13 cm)",
+                    volume: "14 L",
+                    weight: "1.7 lbs"
+                }
+            },
+            { 
+                id: 5, 
+                name: "city pack pro", 
+                price: 729, 
+                image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80",
+                description: [
+                    "Designed for urban professionals and daily tech carry",
+                    "1680D CORDURA® ballistic nylon",
+                    "Lay-flat main compartment for easy packing",
+                    "Suspended laptop pocket (fits up to 15.6\")",
+                    "Ergonomic design with contoured back panel"
+                ],
+                specs: {
+                    dimensions: "Length: 18\" (46 cm) | Width: 12\" (30 cm) | Depth: 7\" (18 cm)",
+                    volume: "24 L",
+                    weight: "2.6 lbs"
+                }
+            },
+            { 
+                id: 6, 
+                name: "travel pack 3", 
+                price: 859, 
+                image: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=600&q=80",
+                description: [
+                    "Ultimate carry-on backpack for frequent travelers",
+                    "1680D CORDURA® ballistic nylon",
+                    "Expandable main packing compartment",
+                    "Padded laptop compartment (up to 17\")"
+                ],
+                specs: {
+                    dimensions: "Length: 21.5\" (54 cm) | Width: 14\" (35 cm) | Depth: 9\" (23 cm)",
+                    volume: "35 L",
+                    weight: "4.1 lbs"
+                }
+            },
+            { 
+                id: 7, 
+                name: "day sling 3", 
+                price: 439, 
+                image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80",
+                description: [
+                    "Versatile crossbody sling bag for daily essentials",
+                    "1680D ballistic nylon",
+                    "Quick-adjust strap and smart internal pocketing"
+                ],
+                specs: {
+                    dimensions: "Length: 11\" (28 cm) | Width: 6\" (15 cm) | Depth: 3\" (8 cm)",
+                    volume: "3 L",
+                    weight: "0.9 lbs"
+                }
+            },
+            { 
+                id: 8, 
+                name: "tech pack 2", 
+                price: 749, 
+                image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80",
+                description: [
+                    "Ultimate organization for heavy tech gear and gadgets",
+                    "Rigid structure to protect electronics",
+                    "Dedicated compartments for laptop, tablet, charger, and cables"
+                ],
+                specs: {
+                    dimensions: "Length: 18\" (46 cm) | Width: 12\" (30 cm) | Depth: 7\" (18 cm)",
+                    volume: "17.5 L",
+                    weight: "3.0 lbs"
+                }
+            }
         ];
 
         let cart = [];
@@ -347,22 +476,93 @@
             document.getElementById('item-count-label').innerText = `${products.length} Items Available`;
             grid.innerHTML = products.map(p => `
                 <div class="bg-dark-900 rounded-3xl border border-zinc-800/80 hover:border-zinc-700 shadow-lg hover:shadow-2xl transition duration-500 overflow-hidden flex flex-col group">
-                    <div class="h-64 overflow-hidden bg-dark-950 relative">
+                    <div class="h-64 overflow-hidden bg-dark-950 relative cursor-pointer" onclick="openProductModal(${p.id})">
                         <div class="absolute inset-0 bg-gradient-to-t from-dark-900/40 to-transparent z-10 pointer-events-none"></div>
                         <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100">
+                        <span class="absolute bottom-3 right-3 z-20 bg-dark-950/80 backdrop-blur-md text-zinc-300 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl border border-zinc-800">Quick View</span>
                     </div>
                     <div class="p-6 flex flex-col flex-1 justify-between">
                         <div>
-                            <h3 class="font-extrabold text-white capitalize tracking-tight mb-2 text-base">${p.name}</h3>
+                            <h3 onclick="openProductModal(${p.id})" class="font-extrabold text-white capitalize tracking-tight mb-2 text-base cursor-pointer hover:text-zinc-300 transition">${p.name}</h3>
                             <p class="text-zinc-200 font-mono font-extrabold text-sm">HK$ ${p.price}</p>
                         </div>
-                        <button onclick="addToCart(${p.id})" class="mt-6 w-full bg-white text-black py-3.5 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-zinc-200 transition flex items-center justify-center space-x-2 shadow-sm">
-                            <i class="fa-solid fa-cart-plus text-xs"></i>
-                            <span>Add to Cart</span>
-                        </button>
+                        <div class="flex items-center gap-2 mt-6">
+                            <button onclick="openProductModal(${p.id})" class="flex-1 bg-dark-950 border border-zinc-800 text-zinc-300 py-3 rounded-2xl font-bold text-xs uppercase tracking-wider hover:bg-dark-800 hover:text-white transition">Details</button>
+                            <button onclick="addToCart(${p.id})" class="flex-1 bg-white text-black py-3 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-zinc-200 transition flex items-center justify-center space-x-1.5 shadow-sm">
+                                <i class="fa-solid fa-cart-plus text-xs"></i>
+                                <span>Buy</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             `).join('');
+        }
+
+        function openProductModal(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            const modalContent = document.getElementById('product-detail-content');
+            modalContent.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div class="rounded-2xl overflow-hidden bg-dark-950 border border-zinc-800 h-72 md:h-96">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold block mb-1">Aer Studio HK</span>
+                        <h2 class="text-2xl md:text-3xl font-black text-white capitalize tracking-tight mb-2">${product.name}</h2>
+                        <p class="text-xl font-mono font-extrabold text-zinc-100 mb-6">HK$ ${product.price}</p>
+
+                        <div class="flex items-center gap-3 mb-6">
+                            <button onclick="addToCart(${product.id}); closeProductModal();" class="flex-1 bg-white text-black py-3.5 rounded-2xl font-extrabold text-xs uppercase tracking-widest hover:bg-zinc-200 transition shadow-lg shadow-white/5 flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span>Add to Cart</span>
+                            </button>
+                        </div>
+
+                        <div class="text-xs text-zinc-400 space-y-2 border-t border-zinc-800 pt-4">
+                            <div class="flex items-center space-x-2"><i class="fa-solid fa-truck-fast text-zinc-300"></i><span>SF Express (Delivered within 1 week in HK)</span></div>
+                            <div class="flex items-center space-x-2"><i class="fa-solid fa-qrcode text-zinc-300"></i><span>FPS Fast Payment System Accepted</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mt-10 pt-8 border-t border-zinc-800">
+                    <div>
+                        <h3 class="font-bold text-sm uppercase tracking-wider text-white mb-4 flex items-center">
+                            <i class="fa-solid fa-circle-info mr-2 text-zinc-400"></i> Description
+                        </h3>
+                        <ul class="space-y-2 text-xs text-zinc-400 leading-relaxed">
+                            ${product.description.map(desc => `<li class="flex items-start"><span class="mr-2 text-zinc-600">•</span><span>${desc}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm uppercase tracking-wider text-white mb-4 flex items-center">
+                            <i class="fa-solid fa-ruler-combined mr-2 text-zinc-400"></i> Specifications
+                        </h3>
+                        <div class="bg-dark-950 border border-zinc-800/80 p-5 rounded-2xl space-y-4 text-xs">
+                            <div>
+                                <span class="text-zinc-500 font-semibold block uppercase tracking-wider mb-1">Dimensions</span>
+                                <span class="text-zinc-200 font-mono">${product.specs.dimensions}</span>
+                            </div>
+                            <div>
+                                <span class="text-zinc-500 font-semibold block uppercase tracking-wider mb-1">Volume</span>
+                                <span class="text-zinc-200 font-mono font-bold">${product.specs.volume}</span>
+                            </div>
+                            <div>
+                                <span class="text-zinc-500 font-semibold block uppercase tracking-wider mb-1">Weight</span>
+                                <span class="text-zinc-200 font-mono">${product.specs.weight}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('product-detail-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-detail-modal').classList.add('hidden');
         }
 
         function scrollToSection(id) {
@@ -477,7 +677,6 @@
             document.getElementById('success-modal').classList.add('hidden');
             document.getElementById('sent-to-email').innerText = customerData.email;
             
-            // Show final modal with loader
             document.getElementById('final-modal').classList.remove('hidden');
             document.getElementById('email-loader').classList.remove('hidden');
             document.getElementById('email-success-icon').classList.add('hidden');
@@ -500,9 +699,6 @@
                 message: "Your order has been successfully placed. We will validate your payment within 24 hours. Once validated, you will receive a shipping confirmation update."
             };
 
-            console.log("Dispatching EmailJS with params:", templateParams);
-
-            // Send via EmailJS with explicit public key fallback option
             emailjs.send(
                 EMAILJS_CONFIG.SERVICE_ID, 
                 EMAILJS_CONFIG.TEMPLATE_ID, 
@@ -510,12 +706,10 @@
                 { publicKey: EMAILJS_CONFIG.PUBLIC_KEY }
             )
             .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
                 document.getElementById('email-loader').classList.add('hidden');
                 document.getElementById('email-success-icon').classList.remove('hidden');
                 document.getElementById('email-title').innerText = "Receipt Uploaded Successfully";
             }, function(error) {
-                console.error('FAILED...', error);
                 document.getElementById('email-loader').classList.add('hidden');
                 document.getElementById('email-success-icon').classList.remove('hidden');
                 document.getElementById('email-title').innerText = "Receipt Uploaded Successfully";
