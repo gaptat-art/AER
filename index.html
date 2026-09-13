@@ -297,7 +297,7 @@
         </div>
     </div>
 
-    <!-- Script Application Logic using stable Unsplash image URLs to prevent hotlinking blocks -->
+    <!-- Script Application Logic with Unique, Fashionable High-End Urban Imagery -->
     <script>
         const sharedDescription = [
             "1680D CORDURA® ballistic nylon exterior (bluesign® approved)",
@@ -316,47 +316,470 @@
 
         const sharedSpecs = { dimensions: "18\" x 12\" x 5.5\"", volume: "16 L", weight: "2.45 lbs" };
 
-        // Stable Unsplash images representing sleek urban bags and gear
-        const sampleImages = [
-            "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=1200&q=80",
-            "https://images.unsplash.com/photo-1545622340-a943d04fe1b5?auto=format&fit=crop&w=1200&q=80"
-        ];
-
+        // Unique high-fashion, streetwear, and architectural urban lifestyle imagery arrays for each product
         const products = [
-            { id: 1, name: "day pack 2", price: 659, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 2, name: "day pack 2 xpac", price: 719, category: "backpack", images: sampleImages, colors: ["Black", "Olive"], description: sharedDescription, specs: sharedSpecs },
-            { id: 3, name: "fit pack 3", price: 669, category: "backpack", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
-            { id: 4, name: "fit pack 3 xpac", price: 719, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 5, name: "city pack", price: 609, category: "backpack", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
-            { id: 6, name: "city pack xpac", price: 709, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 7, name: "city pack pro", price: 729, category: "backpack", images: sampleImages, colors: ["Black", "Navy"], description: sharedDescription, specs: sharedSpecs },
-            { id: 8, name: "city pack pro xpac", price: 829, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 9, name: "flight pack 3", price: 669, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 10, name: "flight pack 3 xpac", price: 779, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 11, name: "travel pack 3 small", price: 849, category: "backpack", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
-            { id: 12, name: "travel pack 3 small xpac", price: 959, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 13, name: "travel pack 3", price: 859, category: "backpack", images: sampleImages, colors: ["Black", "Navy"], description: sharedDescription, specs: sharedSpecs },
-            { id: 14, name: "travel pack 3 xpac", price: 969, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 15, name: "travel pack 2", price: 779, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 16, name: "travel pack 2 xpac", price: 859, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 17, name: "travel pack 2 small", price: 749, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 18, name: "pro pack 20l", price: 779, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 19, name: "tech pack 2", price: 749, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 20, name: "slim pack", price: 569, category: "backpack", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
-            { id: 21, name: "duffel pack 3 xpac", price: 769, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 22, name: "day sling 3", price: 439, category: "sling", images: sampleImages, colors: ["Black", "Gray", "Olive"], description: sharedDescription, specs: sharedSpecs },
-            { id: 23, name: "day sling 3 xpac", price: 469, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 24, name: "day sling 3 max", price: 459, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 25, name: "day sling 3 max xpac", price: 479, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 26, name: "city sling 2", price: 479, category: "sling", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
-            { id: 27, name: "city sling 2 xpac", price: 499, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 28, name: "travel sling 2 xpac", price: 629, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 29, name: "pro sling", price: 499, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 30, name: "tech sling", price: 499, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 31, name: "city tote", price: 599, category: "tote", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
-            { id: 32, name: "gym tote", price: 629, category: "tote", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
-            { id: 33, name: "travel kit 2 xpac", price: 449, category: "tote", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs }
+            { 
+                id: 1, 
+                name: "day pack 2", 
+                price: 659, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 2, 
+                name: "day pack 2 xpac", 
+                price: 719, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1577733966973-d680bffd2e80?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black", "Olive"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 3, 
+                name: "fit pack 3", 
+                price: 669, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1545622340-a943d04fe1b5?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1509744968854-4f0e04505d98?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black", "Gray"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 4, 
+                name: "fit pack 3 xpac", 
+                price: 719, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1546938576-6e6a64f3175e?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 5, 
+                name: "city pack", 
+                price: 609, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1509744968854-4f0e04505d98?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black", "Gray"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 6, 
+                name: "city pack xpac", 
+                price: 709, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 7, 
+                name: "city pack pro", 
+                price: 729, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1550614000-4895a10e1bfd?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black", "Navy"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 8, 
+                name: "city pack pro xpac", 
+                price: 829, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 9, 
+                name: "flight pack 3", 
+                price: 669, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 10, 
+                name: "flight pack 3 xpac", 
+                price: 779, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 11, 
+                name: "travel pack 3 small", 
+                price: 849, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black", "Gray"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 12, 
+                name: "travel pack 3 small xpac", 
+                price: 959, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1511497584788-876761142197?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 13, 
+                name: "travel pack 3", 
+                price: 859, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black", "Navy"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 14, 
+                name: "travel pack 3 xpac", 
+                price: 969, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1510414842594-a61c69b5ae53?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 15, 
+                name: "travel pack 2", 
+                price: 779, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1512353076539-c5f46e2d60f7?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1495555961986-6d4c1ecb7bc3?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 16, 
+                name: "travel pack 2 xpac", 
+                price: 859, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 17, 
+                name: "travel pack 2 small", 
+                price: 749, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 18, 
+                name: "pro pack 20l", 
+                price: 779, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1550614000-4895a10e1bfd?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 19, 
+                name: "tech pack 2", 
+                price: 749, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 20, 
+                name: "slim pack", 
+                price: 569, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1493655161922-ef98929e978e?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black", "Gray"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 21, 
+                name: "duffel pack 3 xpac", 
+                price: 769, 
+                category: "backpack", 
+                images: [
+                    "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 22, 
+                name: "day sling 3", 
+                price: 439, 
+                category: "sling", 
+                images: [
+                    "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black", "Gray", "Olive"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 23, 
+                name: "day sling 3 xpac", 
+                price: 469, 
+                category: "sling", 
+                images: [
+                    "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 24, 
+                name: "day sling 3 max", 
+                price: 459, 
+                category: "sling", 
+                images: [
+                    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 25, 
+                name: "day sling 3 max xpac", 
+                price: 479, 
+                category: "sling", 
+                images: [
+                    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 26, 
+                name: "city sling 2", 
+                price: 479, 
+                category: "sling", 
+                images: [
+                    "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black", "Gray"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 27, 
+                name: "city sling 2 xpac", 
+                price: 499, 
+                category: "sling", 
+                images: [
+                    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1511497584788-876761142197?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 28, 
+                name: "travel sling 2 xpac", 
+                price: 629, 
+                category: "sling", 
+                images: [
+                    "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 29, 
+                name: "pro sling", 
+                price: 499, 
+                category: "sling", 
+                images: [
+                    "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1510414842594-a61c69b5ae53?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 30, 
+                name: "tech sling", 
+                price: 499, 
+                category: "sling", 
+                images: [
+                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1512353076539-c5f46e2d60f7?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1495555961986-6d4c1ecb7bc3?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 31, 
+                name: "city tote", 
+                price: 599, 
+                category: "tote", 
+                images: [
+                    "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 32, 
+                name: "gym tote", 
+                price: 629, 
+                category: "tote", 
+                images: [
+                    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black", "Gray"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            },
+            { 
+                id: 33, 
+                name: "travel kit 2 xpac", 
+                price: 449, 
+                category: "tote", 
+                images: [
+                    "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80"
+                ], 
+                colors: ["Black"], 
+                description: sharedDescription, 
+                specs: sharedSpecs 
+            }
         ];
 
         let cart = [];
