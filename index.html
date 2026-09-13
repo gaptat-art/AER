@@ -302,6 +302,23 @@
 
     <!-- Script Application Logic -->
     <script>
+        const sharedDescription = [
+            "1680D CORDURA® ballistic nylon exterior (bluesign® approved)",
+            "YKK® zippers",
+            "Duraflex® hardware",
+            "Lightweight nylon ripstop liner (bluesign® approved)",
+            "Smart organization for your everyday essentials",
+            "Padded and suspended laptop pocket with soft lining (fits up to a 16\" laptop)",
+            "Ergonomic harness system for enhanced comfort and fit",
+            "Quick-access top pocket",
+            "Exterior water bottle pocket",
+            "Quick-grab top and side handles",
+            "Hidden smart tracker pocket",
+            "Luggage handle pass-through"
+        ];
+
+        const sharedSpecs = { dimensions: "18\" x 12\" x 5.5\"", volume: "16 L", weight: "2.45 lbs" };
+
         const products = [
             { 
                 id: 1, 
@@ -310,21 +327,8 @@
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
                 colors: ["Black"],
-                description: [
-                    "1680D CORDURA® ballistic nylon exterior (bluesign® approved)",
-                    "YKK® zippers",
-                    "Duraflex® hardware",
-                    "Lightweight nylon ripstop liner (bluesign® approved)",
-                    "Smart organization for your everyday essentials",
-                    "Padded and suspended laptop pocket with soft lining (fits up to a 16\" laptop)",
-                    "Ergonomic harness system for enhanced comfort and fit",
-                    "Quick-access top pocket",
-                    "Exterior water bottle pocket",
-                    "Quick-grab top and side handles",
-                    "Hidden smart tracker pocket",
-                    "Luggage handle pass-through"
-                ],
-                specs: { dimensions: "18\" x 12\" x 5.5\"", volume: "16 L", weight: "2.45 lbs" }
+                description: sharedDescription,
+                specs: sharedSpecs
             },
             { 
                 id: 2, 
@@ -333,12 +337,8 @@
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
                 colors: ["Black", "Olive"],
-                description: [
-                    "VX-42 X-Pac™ sailcloth exterior",
-                    "YKK® AquaGuard® water-repellent zippers",
-                    "Fidlock® magnetic hardware elements"
-                ],
-                specs: { dimensions: "18\" x 12\" x 5.5\"", volume: "16 L", weight: "2.35 lbs" }
+                description: sharedDescription,
+                specs: sharedSpecs
             },
             { 
                 id: 3, 
@@ -347,11 +347,8 @@
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80",
                 colors: ["Black", "Navy", "Gray"],
-                description: [
-                    "Ventilated shoe compartment for gym/work",
-                    "Padded laptop pocket (up to 15.6\")"
-                ],
-                specs: { dimensions: "17\" x 12\" x 7\"", volume: "18.8 L", weight: "1.9 lbs" }
+                description: sharedDescription,
+                specs: sharedSpecs
             },
             { 
                 id: 4, 
@@ -360,11 +357,8 @@
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1546938576-6e6a64f3176d?auto=format&fit=crop&w=600&q=80",
                 colors: ["Black", "Gray"],
-                description: [
-                    "Compact everyday urban backpack",
-                    "Smart internal layout for tech accessories"
-                ],
-                specs: { dimensions: "17\" x 11\" x 5\"", volume: "14 L", weight: "1.7 lbs" }
+                description: sharedDescription,
+                specs: sharedSpecs
             },
             { 
                 id: 5, 
@@ -373,11 +367,8 @@
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80",
                 colors: ["Black", "Navy"],
-                description: [
-                    "Lay-flat main compartment for easy packing",
-                    "Suspended laptop pocket (up to 15.6\")"
-                ],
-                specs: { dimensions: "18\" x 12\" x 7\"", volume: "24 L", weight: "2.6 lbs" }
+                description: sharedDescription,
+                specs: sharedSpecs
             },
             { 
                 id: 6, 
@@ -386,11 +377,8 @@
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=600&q=80",
                 colors: ["Black", "X-Pac Black"],
-                description: [
-                    "Ultimate carry-on backpack for frequent travelers",
-                    "Expandable main packing compartment"
-                ],
-                specs: { dimensions: "21.5\" x 14\" x 9\"", volume: "35 L", weight: "4.1 lbs" }
+                description: sharedDescription,
+                specs: sharedSpecs
             },
             { 
                 id: 7, 
@@ -399,11 +387,8 @@
                 category: "sling",
                 image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=600&q=80",
                 colors: ["Black", "Gray", "Olive"],
-                description: [
-                    "Versatile crossbody sling bag for daily essentials",
-                    "Quick-adjust strap and smart pockets"
-                ],
-                specs: { dimensions: "11\" x 6\" x 3\"", volume: "3 L", weight: "0.9 lbs" }
+                description: sharedDescription,
+                specs: sharedSpecs
             },
             { 
                 id: 8, 
@@ -412,11 +397,8 @@
                 category: "backpack",
                 image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80",
                 colors: ["Black"],
-                description: [
-                    "Ultimate organization for heavy tech gear",
-                    "Rigid structure to protect electronics"
-                ],
-                specs: { dimensions: "18\" x 12\" x 7\"", volume: "17.5 L", weight: "3.0 lbs" }
+                description: sharedDescription,
+                specs: sharedSpecs
             }
         ];
 
