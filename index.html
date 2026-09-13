@@ -335,7 +335,7 @@
                 name: "day pack 2 xpac", 
                 price: 719, 
                 category: "backpack",
-                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
+                image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80",
                 colors: ["Black", "Olive"],
                 description: sharedDescription,
                 specs: sharedSpecs
@@ -365,7 +365,7 @@
                 name: "city pack pro", 
                 price: 729, 
                 category: "backpack",
-                image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=600&q=80",
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
                 colors: ["Black", "Navy"],
                 description: sharedDescription,
                 specs: sharedSpecs
@@ -410,7 +410,6 @@
         function setFilter(category) {
             currentFilter = category;
             
-            // Update active state of filter buttons
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if (btn.getAttribute('data-category') === category) {
                     btn.className = "filter-btn px-3 py-1.5 rounded-xl text-[11px] font-bold uppercase tracking-wider transition whitespace-nowrap bg-white text-black";
@@ -430,13 +429,11 @@
         function renderProducts() {
             const grid = document.getElementById('product-grid');
             
-            // 1. Filter items
             let filtered = products.filter(p => {
                 if (currentFilter === 'all') return true;
                 return p.category === currentFilter;
             });
 
-            // 2. Sort items
             if (currentSort === 'price-low') {
                 filtered.sort((a, b) => a.price - b.price);
             } else if (currentSort === 'price-high') {
@@ -444,7 +441,6 @@
             } else if (currentSort === 'name') {
                 filtered.sort((a, b) => a.name.localeCompare(b.name));
             } else {
-                // default sort by id
                 filtered.sort((a, b) => a.id - b.id);
             }
 
