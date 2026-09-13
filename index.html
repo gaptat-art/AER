@@ -360,7 +360,7 @@
         ];
 
         function getImagesForProduct(product) {
-            if (product.id === 1) return dayPack2Photos;
+            if (product.id === 1 || product.id === 2) return dayPack2Photos;
             let pool = backpackPhotos;
             if (product.category === 'sling') pool = slingPhotos;
             if (product.category === 'tote') pool = totePhotos;
@@ -464,7 +464,7 @@
                             <button onclick="openProductModal(${p.id})" class="flex-1 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 text-zinc-700 py-3 rounded-2xl font-semibold text-xs tracking-wider uppercase transition">Details</button>
                             <button onclick="addToCart(${p.id})" class="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white py-3 rounded-2xl font-semibold text-xs tracking-widest uppercase flex items-center justify-center space-x-1.5 shadow-sm transition">
                                 <i class="fa-solid fa-cart-plus text-xs"></i>
-                                <span>Acquire</span>
+                                <span>Select</span>
                             </button>
                         </div>
                     </div>
