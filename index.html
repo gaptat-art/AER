@@ -297,7 +297,7 @@
         </div>
     </div>
 
-    <!-- Script Application Logic with Multi-Photo Arrays Referenced from aersf.com assets -->
+    <!-- Script Application Logic using stable Unsplash image URLs to prevent hotlinking blocks -->
     <script>
         const sharedDescription = [
             "1680D CORDURA® ballistic nylon exterior (bluesign® approved)",
@@ -316,276 +316,47 @@
 
         const sharedSpecs = { dimensions: "18\" x 12\" x 5.5\"", volume: "16 L", weight: "2.45 lbs" };
 
-        // Each product now features an array of multiple official photo angles sourced from aersf.com CDN paths
+        // Stable Unsplash images representing sleek urban bags and gear
+        const sampleImages = [
+            "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1545622340-a943d04fe1b5?auto=format&fit=crop&w=1200&q=80"
+        ];
+
         const products = [
-            { 
-                id: 1, name: "day pack 2", price: 659, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21007_DayPack2-Black-1_1200x.jpg?v=1629837943",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21007_DayPack2-Black-2_1200x.jpg?v=1629837943",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21007_DayPack2-Black-3_1200x.jpg?v=1629837943"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 2, name: "day pack 2 xpac", price: 719, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23007_DayPack2X-Pac-Black-1_1200x.jpg?v=1630099301",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23007_DayPack2X-Pac-Black-2_1200x.jpg?v=1630099301"
-                ], 
-                colors: ["Black", "Olive"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 3, name: "fit pack 3", price: 669, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21022_FitPack3-Black-1_1200x.jpg?v=1629837771",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21022_FitPack3-Black-2_1200x.jpg?v=1629837771"
-                ], 
-                colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 4, name: "fit pack 3 xpac", price: 719, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23022_FitPack3X-Pac-Black-1_1200x.jpg?v=1630099395",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23022_FitPack3X-Pac-Black-2_1200x.jpg?v=1630099395"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 5, name: "city pack", price: 609, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21014_CityPack-Black-1_1200x.jpg?v=1629837648",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21014_CityPack-Black-2_1200x.jpg?v=1629837648",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21014_CityPack-Black-3_1200x.jpg?v=1629837648"
-                ], 
-                colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 6, name: "city pack xpac", price: 709, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23014_CityPackX-Pac-Black-1_1200x.jpg?v=1630099230",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23014_CityPackX-Pac-Black-2_1200x.jpg?v=1630099230"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 7, name: "city pack pro", price: 729, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21030_CityPackPro-Black-1_1200x.jpg?v=1659724123",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21030_CityPackPro-Black-2_1200x.jpg?v=1659724123",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21030_CityPackPro-Black-3_1200x.jpg?v=1659724123"
-                ], 
-                colors: ["Black", "Navy"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 8, name: "city pack pro xpac", price: 829, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23030_CityPackProX-Pac-Black-1_1200x.jpg?v=1659724200",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23030_CityPackProX-Pac-Black-2_1200x.jpg?v=1659724200"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 9, name: "flight pack 3", price: 669, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21028_FlightPack3-Black-1_1200x.jpg?v=1629837812",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21028_FlightPack3-Black-2_1200x.jpg?v=1629837812"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 10, name: "flight pack 3 xpac", price: 779, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23028_FlightPack3X-Pac-Black-1_1200x.jpg?v=1630099450",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23028_FlightPack3X-Pac-Black-2_1200x.jpg?v=1630099450"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 11, name: "travel pack 3 small", price: 849, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21032_TravelPack3Small-Black-1_1200x.jpg?v=1660155011",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21032_TravelPack3Small-Black-2_1200x.jpg?v=1660155011"
-                ], 
-                colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 12, name: "travel pack 3 small xpac", price: 959, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23032_TravelPack3SmallX-Pac-Black-1_1200x.jpg?v=1660155100",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23032_TravelPack3SmallX-Pac-Black-2_1200x.jpg?v=1660155100"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 13, name: "travel pack 3", price: 859, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21031_TravelPack3-Black-1_1200x.jpg?v=1660154800",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21031_TravelPack3-Black-2_1200x.jpg?v=1660154800",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21031_TravelPack3-Black-3_1200x.jpg?v=1660154800"
-                ], 
-                colors: ["Black", "Navy"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 14, name: "travel pack 3 xpac", price: 969, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23031_TravelPack3X-Pac-Black-1_1200x.jpg?v=1660154900",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23031_TravelPack3X-Pac-Black-2_1200x.jpg?v=1660154900"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 15, name: "travel pack 2", price: 779, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21010_TravelPack2-Black-1_1200x.jpg?v=1629837990",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21010_TravelPack2-Black-2_1200x.jpg?v=1629837990"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 16, name: "travel pack 2 xpac", price: 859, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23010_TravelPack2X-Pac-Black-1_1200x.jpg?v=1630099500",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23010_TravelPack2X-Pac-Black-2_1200x.jpg?v=1630099500"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 17, name: "travel pack 2 small", price: 749, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21018_TravelPack2Small-Black-1_1200x.jpg?v=1629838040",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21018_TravelPack2Small-Black-2_1200x.jpg?v=1629838040"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 18, name: "pro pack 20l", price: 779, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21035_ProPack20L-Black-1_1200x.jpg?v=1670000100",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21035_ProPack20L-Black-2_1200x.jpg?v=1670000100"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 19, name: "tech pack 2", price: 749, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21016_TechPack2-Black-1_1200x.jpg?v=1629838100",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21016_TechPack2-Black-2_1200x.jpg?v=1629838100"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 20, name: "slim pack", price: 569, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21033_SlimPack-Black-1_1200x.jpg?v=1665000200",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21033_SlimPack-Black-2_1200x.jpg?v=1665000200"
-                ], 
-                colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 21, name: "duffel pack 3 xpac", price: 769, category: "backpack", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23021_DuffelPack3X-Pac-Black-1_1200x.jpg?v=1630099600",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23021_DuffelPack3X-Pac-Black-2_1200x.jpg?v=1630099600"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 22, name: "day sling 3", price: 439, category: "sling", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21024_DaySling3-Black-1_1200x.jpg?v=1629837700",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21024_DaySling3-Black-2_1200x.jpg?v=1629837700"
-                ], 
-                colors: ["Black", "Gray", "Olive"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 23, name: "day sling 3 xpac", price: 469, category: "sling", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23024_DaySling3X-Pac-Black-1_1200x.jpg?v=1630099700",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23024_DaySling3X-Pac-Black-2_1200x.jpg?v=1630099700"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 24, name: "day sling 3 max", price: 459, category: "sling", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21026_DaySling3Max-Black-1_1200x.jpg?v=1629837750",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21026_DaySling3Max-Black-2_1200x.jpg?v=1629837750"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 25, name: "day sling 3 max xpac", price: 479, category: "sling", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23026_DaySling3MaxX-Pac-Black-1_1200x.jpg?v=1630099800",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23026_DaySling3MaxX-Pac-Black-2_1200x.jpg?v=1630099800"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 26, name: "city sling 2", price: 479, category: "sling", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21020_CitySling2-Black-1_1200x.jpg?v=1629837680",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21020_CitySling2-Black-2_1200x.jpg?v=1629837680"
-                ], 
-                colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 27, name: "city sling 2 xpac", price: 499, category: "sling", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23020_CitySling2X-Pac-Black-1_1200x.jpg?v=1630099900",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23020_CitySling2X-Pac-Black-2_1200x.jpg?v=1630099900"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 28, name: "travel sling 2 xpac", price: 629, category: "sling", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23019_TravelSling2X-Pac-Black-1_1200x.jpg?v=1630100000",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23019_TravelSling2X-Pac-Black-2_1200x.jpg?v=1630100000"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 29, name: "pro sling", price: 499, category: "sling", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21034_ProSling-Black-1_1200x.jpg?v=1670000300",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21034_ProSling-Black-2_1200x.jpg?v=1670000300"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 30, name: "tech sling", price: 499, category: "sling", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21015_TechSling-Black-1_1200x.jpg?v=1629838150",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21015_TechSling-Black-2_1200x.jpg?v=1629838150"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 31, name: "city tote", price: 599, category: "tote", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21025_CityTote-Black-1_1200x.jpg?v=1629837660",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21025_CityTote-Black-2_1200x.jpg?v=1629837660"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 32, name: "gym tote", price: 629, category: "tote", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21023_GymTote-Black-1_1200x.jpg?v=1629837850",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-21023_GymTote-Black-2_1200x.jpg?v=1629837850"
-                ], 
-                colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs 
-            },
-            { 
-                id: 33, name: "travel kit 2 xpac", price: 449, category: "tote", 
-                images: [
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23013_TravelKit2X-Pac-Black-1_1200x.jpg?v=1630100100",
-                    "https://cdn.shopify.com/s/files/1/0285/1105/products/AER-23013_TravelKit2X-Pac-Black-2_1200x.jpg?v=1630100100"
-                ], 
-                colors: ["Black"], description: sharedDescription, specs: sharedSpecs 
-            }
+            { id: 1, name: "day pack 2", price: 659, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 2, name: "day pack 2 xpac", price: 719, category: "backpack", images: sampleImages, colors: ["Black", "Olive"], description: sharedDescription, specs: sharedSpecs },
+            { id: 3, name: "fit pack 3", price: 669, category: "backpack", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
+            { id: 4, name: "fit pack 3 xpac", price: 719, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 5, name: "city pack", price: 609, category: "backpack", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
+            { id: 6, name: "city pack xpac", price: 709, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 7, name: "city pack pro", price: 729, category: "backpack", images: sampleImages, colors: ["Black", "Navy"], description: sharedDescription, specs: sharedSpecs },
+            { id: 8, name: "city pack pro xpac", price: 829, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 9, name: "flight pack 3", price: 669, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 10, name: "flight pack 3 xpac", price: 779, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 11, name: "travel pack 3 small", price: 849, category: "backpack", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
+            { id: 12, name: "travel pack 3 small xpac", price: 959, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 13, name: "travel pack 3", price: 859, category: "backpack", images: sampleImages, colors: ["Black", "Navy"], description: sharedDescription, specs: sharedSpecs },
+            { id: 14, name: "travel pack 3 xpac", price: 969, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 15, name: "travel pack 2", price: 779, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 16, name: "travel pack 2 xpac", price: 859, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 17, name: "travel pack 2 small", price: 749, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 18, name: "pro pack 20l", price: 779, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 19, name: "tech pack 2", price: 749, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 20, name: "slim pack", price: 569, category: "backpack", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
+            { id: 21, name: "duffel pack 3 xpac", price: 769, category: "backpack", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 22, name: "day sling 3", price: 439, category: "sling", images: sampleImages, colors: ["Black", "Gray", "Olive"], description: sharedDescription, specs: sharedSpecs },
+            { id: 23, name: "day sling 3 xpac", price: 469, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 24, name: "day sling 3 max", price: 459, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 25, name: "day sling 3 max xpac", price: 479, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 26, name: "city sling 2", price: 479, category: "sling", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
+            { id: 27, name: "city sling 2 xpac", price: 499, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 28, name: "travel sling 2 xpac", price: 629, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 29, name: "pro sling", price: 499, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 30, name: "tech sling", price: 499, category: "sling", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 31, name: "city tote", price: 599, category: "tote", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs },
+            { id: 32, name: "gym tote", price: 629, category: "tote", images: sampleImages, colors: ["Black", "Gray"], description: sharedDescription, specs: sharedSpecs },
+            { id: 33, name: "travel kit 2 xpac", price: 449, category: "tote", images: sampleImages, colors: ["Black"], description: sharedDescription, specs: sharedSpecs }
         ];
 
         let cart = [];
