@@ -297,7 +297,7 @@
         </div>
     </div>
 
-    <!-- Script Application Logic with Guaranteed 100% Backpack, Sling, and Tote Bag Product Photography -->
+    <!-- Script Application Logic with Day Pack 2 Custom Attached Images -->
     <script>
         const sharedDescription = [
             "1680D CORDURA® ballistic nylon exterior (bluesign® approved)",
@@ -316,7 +316,20 @@
 
         const sharedSpecs = { dimensions: "18\" x 12\" x 5.5\"", volume: "16 L", weight: "2.45 lbs" };
 
-        // Guaranteed backpack, sling, and tote bag photography pools
+        // Specific high-res photos for Day Pack 2 from user attachments
+        const dayPack2Photos = [
+            "image_28.png",
+            "image_29.png",
+            "image_30.png",
+            "image_31.png",
+            "image_32.png",
+            "image_33.png",
+            "image_34.png",
+            "image_35.png",
+            "image_36.png"
+        ];
+
+        // Guaranteed backpack, sling, and tote bag photography pools for other items
         const backpackPhotos = [
             "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=80",
             "https://images.unsplash.com/photo-1546938576-6e6a64f3175c?auto=format&fit=crop&w=1200&q=80",
@@ -339,11 +352,13 @@
             "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=80"
         ];
 
-        function getImagesForCategory(category) {
+        function getImagesForProduct(product) {
+            if (product.id === 1) {
+                return dayPack2Photos;
+            }
             let pool = backpackPhotos;
-            if (category === 'sling') pool = slingPhotos;
-            if (category === 'tote') pool = totePhotos;
-            // Return 3 unique images from the pool
+            if (product.category === 'sling') pool = slingPhotos;
+            if (product.category === 'tote') pool = totePhotos;
             return [
                 pool[0],
                 pool[1 % pool.length],
@@ -387,10 +402,10 @@
             { id: 33, name: "travel kit 2 xpac", price: 449, category: "tote", colors: ["Black"] }
         ];
 
-        // Hydrate products with strictly bag-related images
+        // Hydrate products with images including the attached Day Pack 2 assets
         const products = rawProducts.map(p => ({
             ...p,
-            images: getImagesForCategory(p.category),
+            images: getImagesForProduct(p),
             description: sharedDescription,
             specs: sharedSpecs
         }));
@@ -445,7 +460,7 @@
                 <div class="bg-dark-900 rounded-2xl border border-zinc-800/80 shadow-md overflow-hidden flex flex-col">
                     <div class="h-48 overflow-hidden bg-dark-950 relative cursor-pointer" onclick="openProductModal(${p.id})">
                         <img src="${p.images[0]}" alt="${p.name}" class="w-full h-full object-cover opacity-90 hover:scale-105 transition duration-300">
-                        ${p.images.length > 1 ? '<span class="absolute bottom-2 right-2 bg-black/70 text-zinc-300 text-[9px] font-mono px-2 py-0.5 rounded-md backdrop-blur-sm">+ Photos</span>' : ''}
+                        ${p.images.length > 1 ? `<span class="absolute bottom-2 right-2 bg-black/70 text-zinc-300 text-[9px] font-mono px-2 py-0.5 rounded-md backdrop-blur-sm">+${p.images.length} Photos</span>` : ''}
                     </div>
                     <div class="p-4 flex flex-col flex-1 justify-between">
                         <div>
